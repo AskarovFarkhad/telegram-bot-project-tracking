@@ -1,3 +1,4 @@
+/** Сотрудники **/
 DROP TABLE IF EXISTS employees;
 
 CREATE TABLE employees
@@ -11,6 +12,7 @@ CREATE TABLE employees
     employee_status     VARCHAR(10) NULL
 );
 
+/** Проекты **/
 DROP TABLE IF EXISTS projects;
 
 CREATE TABLE projects
@@ -21,12 +23,15 @@ CREATE TABLE projects
     project_status VARCHAR(10) NULL
 );
 
-DROP TABLE IF EXISTS employees_projects;
+/** Соотношение ManyToMany **/
+DROP TABLE IF EXISTS projects_registration;
 
-CREATE TABLE employees_projects
+CREATE TABLE projects_registration
 (
-    employee_id INTEGER NOT NULL,
-    project_id   INTEGER NOT NULL,
+    id          SERIAL PRIMARY KEY,
+    employee_id BIGINT NOT NULL,
+    project_id  BIGINT NOT NULL,
+    start_data  DATE   NOT NULL,
     FOREIGN KEY (employee_id) REFERENCES employees (id),
     FOREIGN KEY (project_id) REFERENCES projects (id)
 );

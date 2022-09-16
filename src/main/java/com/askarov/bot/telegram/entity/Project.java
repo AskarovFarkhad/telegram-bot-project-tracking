@@ -15,8 +15,8 @@ import java.util.Set;
 public class Project {
 
     @Id
-    @Column(name = "id")
-    private Integer projectId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "project_number", nullable = false)
     private String projectNumber;
@@ -25,9 +25,9 @@ public class Project {
     private String projectName;
 
     @Column(name = "project_status")
-    private StatusProject statusProject;
+    private String statusProject;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "projects")
-    private Set<Employee> employees;
+    @OneToMany(mappedBy = "project")
+    private Set<ProjectRegistration> projectRegistrations;
 }
 
