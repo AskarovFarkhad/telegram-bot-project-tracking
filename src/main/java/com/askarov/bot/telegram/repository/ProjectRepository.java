@@ -1,10 +1,10 @@
 package com.askarov.bot.telegram.repository;
 
-import com.askarov.bot.telegram.entity.Employee;
+import com.askarov.bot.telegram.entity.Project;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface EmployeeRepository
-        extends JpaRepository<Employee, Long> {
+public interface ProjectRepository
+        extends JpaRepository<Project, Long> {
 }

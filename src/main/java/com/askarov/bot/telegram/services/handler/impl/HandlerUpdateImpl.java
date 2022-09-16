@@ -2,15 +2,14 @@ package com.askarov.bot.telegram.services.handler.impl;
 
 import com.askarov.bot.telegram.config.BotConfig;
 import com.askarov.bot.telegram.services.command.CommandConsole;
-import com.askarov.bot.telegram.services.command.impl.*;
-import com.askarov.bot.telegram.services.enums.CallbackData;
-import com.askarov.bot.telegram.services.enums.MainMenu;
 import com.askarov.bot.telegram.services.handler.HandlerUpdate;
-import com.askarov.bot.telegram.services.menu.keyboard.ReplyKeyboard;
-import com.askarov.bot.telegram.services.menu.MenuNavigation;
-import com.askarov.bot.telegram.services.menu.impl.EmployeeMenuNavigationImpl;
-import com.askarov.bot.telegram.services.menu.impl.ProjectMenuNavigationImpl;
-import com.askarov.bot.telegram.services.menu.impl.SearchMenuNavigationImpl;
+import com.askarov.bot.telegram.services.command.impl.*;
+import com.askarov.bot.telegram.enums.MainMenu;
+import com.askarov.bot.telegram.util.keyboard.ReplyKeyboard;
+import com.askarov.bot.telegram.util.menu.MenuNavigation;
+import com.askarov.bot.telegram.util.menu.impl.EmployeeMenuNavigationImpl;
+import com.askarov.bot.telegram.util.menu.impl.ProjectMenuNavigationImpl;
+import com.askarov.bot.telegram.util.menu.impl.SearchMenuNavigationImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -18,7 +17,6 @@ import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
@@ -26,6 +24,7 @@ import java.util.List;
 
 @Slf4j
 @Component
+//TODO: Временная реализация, подлежит рефакторингу
 public class HandlerUpdateImpl implements HandlerUpdate {
 
     private final List<MenuNavigation> MenuList;

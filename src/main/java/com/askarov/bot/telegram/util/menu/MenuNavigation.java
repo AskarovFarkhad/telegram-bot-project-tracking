@@ -1,4 +1,4 @@
-package com.askarov.bot.telegram.services.menu;
+package com.askarov.bot.telegram.util.menu;
 
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 

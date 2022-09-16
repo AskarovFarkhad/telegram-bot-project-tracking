@@ -1,4 +1,4 @@
-package com.askarov.bot.telegram.services.enums;
+package com.askarov.bot.telegram.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

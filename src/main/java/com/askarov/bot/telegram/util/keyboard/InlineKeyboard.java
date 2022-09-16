@@ -1,4 +1,4 @@
-package com.askarov.bot.telegram.services.menu.keyboard;
+package com.askarov.bot.telegram.util.keyboard;
 
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 

@@ -1,9 +1,9 @@
 package com.askarov.bot.telegram.services.command.impl;
 
+import com.askarov.bot.telegram.entity.Employee;
 import com.askarov.bot.telegram.repository.EmployeeRepository;
-import com.askarov.bot.telegram.repository.entity.Employee;
 import com.askarov.bot.telegram.services.command.CommandConsole;
-import com.askarov.bot.telegram.services.enums.CallbackData;
+import com.askarov.bot.telegram.enums.CallbackData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -28,13 +28,13 @@ public class CreateCommandImpl implements CommandConsole {
     @Override
     public String execute(Update update) {
 
-        Employee employee = new Employee(
-                update.getCallbackQuery().getFrom().getId(),
-                update.getCallbackQuery().getFrom().getFirstName(),
-                "---",
-                "---",
-                "Инженер"
-        );
+        Employee employee = Employee.builder()
+                .employeeChatId(update.getCallbackQuery().getFrom().getId())
+                .employeeFirstName(update.getCallbackQuery().getFrom().getFirstName())
+                .employeeLastName("---")
+                .employeePatronymic("---")
+                .employeePost("Инженер")
+                .build();
 
         employeeRepository.save(employee);
         return "Вы добавлены!";

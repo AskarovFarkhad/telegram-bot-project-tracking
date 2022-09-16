@@ -1,7 +1,7 @@
-package com.askarov.bot.telegram.services.menu.keyboard.inline;
+package com.askarov.bot.telegram.util.keyboard.inline;
 
-import com.askarov.bot.telegram.services.menu.keyboard.InlineKeyboard;
-import com.askarov.bot.telegram.services.enums.CallbackData;
+import com.askarov.bot.telegram.enums.CallbackData;
+import com.askarov.bot.telegram.util.keyboard.InlineKeyboard;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;

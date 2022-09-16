@@ -1,6 +1,6 @@
-package com.askarov.bot.telegram.services.menu.keyboard;
+package com.askarov.bot.telegram.util.keyboard;
 
-import com.askarov.bot.telegram.services.enums.MainMenu;
+import com.askarov.bot.telegram.enums.MainMenu;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;

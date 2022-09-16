@@ -1,10 +1,9 @@
 package com.askarov.bot.telegram.services.command.impl;
 
 import com.askarov.bot.telegram.services.command.CommandConsole;
-import com.askarov.bot.telegram.services.enums.CallbackData;
+import com.askarov.bot.telegram.enums.CallbackData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 @Slf4j

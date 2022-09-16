@@ -1,6 +1,6 @@
 package com.askarov.bot.telegram.config;
 
-import com.askarov.bot.telegram.services.menu.keyboard.ReplyKeyboard;
+import com.askarov.bot.telegram.util.keyboard.ReplyKeyboard;
 import com.askarov.bot.telegram.services.handler.HandlerUpdate;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +15,9 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 @PropertySource("classpath:bot.properties")
 public class BotConfig extends TelegramLongPollingBot {
 
-    @Value("${bot.getName}")
+    @Value("${bot.name}")
     private String BOT_NAME;
-    @Value("${bot.getToken}")
+    @Value("${bot.token}")
     private String BOT_TOKEN;
 
     private final HandlerUpdate handler;
