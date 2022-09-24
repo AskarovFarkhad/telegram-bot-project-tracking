@@ -1,11 +1,11 @@
 package com.askarov.bot.telegram.services.command.impl;
 
-import com.askarov.bot.telegram.services.command.CommandConsole;
 import com.askarov.bot.telegram.enums.CallbackData;
-import org.springframework.stereotype.Component;
+import com.askarov.bot.telegram.services.command.CommandConsole;
+import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
-@Component
+@Service
 public class UpdateCommandImpl implements CommandConsole {
 
     @Override
