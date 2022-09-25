@@ -15,7 +15,6 @@ public class SearchMenuNavigationImpl implements MenuNavigation {
 
     private final SearchInlineKeyboard searchInlineKeyboard;
 
-    @Autowired
     public SearchMenuNavigationImpl(SearchInlineKeyboard searchInlineKeyboard) {
         this.searchInlineKeyboard = searchInlineKeyboard;
     }

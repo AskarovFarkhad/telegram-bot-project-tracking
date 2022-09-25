@@ -16,8 +16,7 @@ public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long employeeId;
+    private Long id;
 
     @Column(name = "employee_chat_id", nullable = false)
     private Long employeeChatId;
@@ -35,11 +34,9 @@ public class Employee {
     private String employeePost;
 
     @Column(name = "employee_status")
-    private StatusEmployee employeeStatus = StatusEmployee.WORK;
+    private String employeeStatus = StatusEmployee.WORK.getStatusEmployee();
 
-    @ManyToMany
-    @JoinTable(name = "employees_projects",
-            joinColumns = @JoinColumn(name = "employee_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "project_id", referencedColumnName = "id"))
-    private Set<Project> projects;
+    @OneToMany(mappedBy = "employee")
+    private Set<ProjectRegistration> projectRegistrations;
+
 }

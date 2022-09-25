@@ -15,7 +15,6 @@ public class ProjectMenuNavigationImpl implements MenuNavigation {
 
     private final ProjectInlineKeyboard projectInlineKeyboard;
 
-    @Autowired
     public ProjectMenuNavigationImpl(ProjectInlineKeyboard projectInlineKeyboard) {
         this.projectInlineKeyboard = projectInlineKeyboard;
     }

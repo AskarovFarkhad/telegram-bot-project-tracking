@@ -5,15 +5,15 @@ import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 @Service
-public class StartCommandImpl implements Command {
+public class UnknownCommandImpl implements Command {
 
     @Override
     public String getCommandSyntax() {
-        return "/start";
+        return null;
     }
 
     @Override
     public String execute(Update update) {
-        return  "Приветствую тебя, " + update.getMessage().getFrom().getFirstName() + "!";
+        return "Я не понимаю, что ты хочешь от меня";
     }
 }

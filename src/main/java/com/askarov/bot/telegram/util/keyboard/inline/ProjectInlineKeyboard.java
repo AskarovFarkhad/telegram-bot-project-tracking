@@ -29,15 +29,15 @@ public class ProjectInlineKeyboard {
 
         ProjectMenuList.add(InlineKeyboard.getButton(
                 CallbackData.PROJECT_ADD.getInlineName(),
-                CallbackData.PROJECT_ADD.getCallbackData()));
+                CallbackData.PROJECT_ADD.getCommandName()));
 
         ProjectMenuList.add(InlineKeyboard.getButton(
                 CallbackData.PROJECT_UPDATE.getInlineName(),
-                CallbackData.PROJECT_UPDATE.getCallbackData()));
+                CallbackData.PROJECT_UPDATE.getCommandName()));
 
         ProjectMenuList.add(InlineKeyboard.getButton(
                 CallbackData.PROJECT_DELETE.getInlineName(),
-                CallbackData.PROJECT_DELETE.getCallbackData()));
+                CallbackData.PROJECT_DELETE.getCommandName()));
 
         return ProjectMenuList;
     }

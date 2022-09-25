@@ -1,28 +1,26 @@
-package com.askarov.bot.telegram.services.command.impl;
+package com.askarov.bot.telegram.services.command.impl.employee;
 
 import com.askarov.bot.telegram.entity.Employee;
-import com.askarov.bot.telegram.repository.EmployeeRepository;
-import com.askarov.bot.telegram.services.command.CommandConsole;
 import com.askarov.bot.telegram.enums.CallbackData;
+import com.askarov.bot.telegram.repository.EmployeeRepository;
+import com.askarov.bot.telegram.services.command.Command;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 @Slf4j
-@Component
-public class CreateCommandImpl implements CommandConsole {
+@Service
+public class CreateEmployeeCommandImpl implements Command {
 
     private final EmployeeRepository employeeRepository;
 
-    @Autowired
-    public CreateCommandImpl(EmployeeRepository employeeRepository) {
+    public CreateEmployeeCommandImpl(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
     }
 
     @Override
     public String getCommandSyntax() {
-        return CallbackData.EMPLOYEE_CREATE.getCallbackData();
+        return CallbackData.EMPLOYEE_CREATE.getCommandName();
     }
 
     @Override
