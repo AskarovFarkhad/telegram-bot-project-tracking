@@ -29,15 +29,15 @@ public class SearchInlineKeyboard {
 
         SearchMenuList.add(InlineKeyboard.getButton(
                 CallbackData.SEARCH_EMPLOYEE.getInlineName(),
-                CallbackData.SEARCH_EMPLOYEE.getCallbackData()));
+                CallbackData.SEARCH_EMPLOYEE.getCommandName()));
 
         SearchMenuList.add(InlineKeyboard.getButton(
                 CallbackData.SEARCH_PROJECT.getInlineName(),
-                CallbackData.SEARCH_PROJECT.getCallbackData()));
+                CallbackData.SEARCH_PROJECT.getCommandName()));
 
         SearchMenuList.add(InlineKeyboard.getButton(
                 CallbackData.SEARCH_ALL_EMPLOYEES.getInlineName(),
-                CallbackData.SEARCH_ALL_EMPLOYEES.getCallbackData()));
+                CallbackData.SEARCH_ALL_EMPLOYEES.getCommandName()));
 
         return SearchMenuList;
     }

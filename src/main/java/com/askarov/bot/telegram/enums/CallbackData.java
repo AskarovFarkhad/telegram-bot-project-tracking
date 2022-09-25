@@ -40,10 +40,14 @@ public enum CallbackData {
 
     SEARCH_ALL_EMPLOYEES(
             "Список всех сотрудников",
-            "/list");
+            "/list"),
+
+    START(
+            "Запуск бота",
+                    "/start");
 
     @Getter
     private final String inlineName;
     @Getter
-    private final String callbackData;
+    private final String commandName;
 }

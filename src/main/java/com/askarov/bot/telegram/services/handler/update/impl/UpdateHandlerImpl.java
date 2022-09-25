@@ -1,7 +1,6 @@
 package com.askarov.bot.telegram.services.handler.update.impl;
 
 import com.askarov.bot.telegram.config.BotConfig;
-import com.askarov.bot.telegram.services.handler.query.impl.QueryHandlerImpl;
 import com.askarov.bot.telegram.services.handler.msg.impl.MsgHandlerImpl;
 import com.askarov.bot.telegram.services.handler.update.UpdateHandler;
 import lombok.AllArgsConstructor;
@@ -18,13 +17,13 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 public class UpdateHandlerImpl implements UpdateHandler {
 
     private MsgHandlerImpl msgHandler;
-    private QueryHandlerImpl queryHandler;
 
     @Override
     public void updateHandler(BotConfig bot, Update update) {
 
         if (update.hasMessage() && update.getMessage().hasText()) {
-            log.info("Bot has callback message: " + update.getMessage());
+            // если текст с кнопок меню, то возвращаются inline кнопки
+            log.info("Bot has message: " + update.getMessage());
             outMessageExecute(bot,
                     msgHandler.outMessageText(
                             update,
@@ -32,9 +31,10 @@ public class UpdateHandlerImpl implements UpdateHandler {
                             update.getMessage().getChatId()));
 
         } else if (update.hasCallbackQuery()) {
+            // если отклик от inline кнопок (команды), то выполняется соответствующая команда
             log.info("Bot has callback query: " + update.getCallbackQuery().getData());
             outMessageExecute(bot,
-                    queryHandler.outMessageButton(
+                    msgHandler.outMessageText(
                             update,
                             update.getCallbackQuery().getData(),
                             update.getCallbackQuery().getFrom().getId()));

@@ -29,15 +29,15 @@ public class EmployeeInlineKeyboard {
 
         EmployeeMenuList.add(InlineKeyboard.getButton(
                 CallbackData.EMPLOYEE_CREATE.getInlineName(),
-                CallbackData.EMPLOYEE_CREATE.getCallbackData()));
+                CallbackData.EMPLOYEE_CREATE.getCommandName()));
 
         EmployeeMenuList.add(InlineKeyboard.getButton(
                 CallbackData.EMPLOYEE_UPDATE.getInlineName(),
-                CallbackData.EMPLOYEE_UPDATE.getCallbackData()));
+                CallbackData.EMPLOYEE_UPDATE.getCommandName()));
 
         EmployeeMenuList.add(InlineKeyboard.getButton(
                 CallbackData.EMPLOYEE_DELETE.getInlineName(),
-                CallbackData.EMPLOYEE_DELETE.getCallbackData()));
+                CallbackData.EMPLOYEE_DELETE.getCommandName()));
 
         return EmployeeMenuList;
     }
