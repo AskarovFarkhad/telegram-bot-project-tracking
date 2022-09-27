@@ -39,9 +39,9 @@ public class CommandContainer {
 
     @Autowired
     public CommandContainer(UnknownCommandImpl unknownCommand,
-                            EmployeeInlineKeyboard employeeInlineKeyboard,
                             EmployeeRepository employeeRepository,
                             ProjectRepository projectRepository,
+                            EmployeeInlineKeyboard employeeInlineKeyboard,
                             ProjectInlineKeyboard projectInlineKeyboard,
                             SearchInlineKeyboard searchInlineKeyboard) {
 

@@ -18,6 +18,7 @@ import static com.askarov.bot.telegram.enums.MainMenu.INFO;
 public class MsgHandlerImpl implements MsgHandler {
 
     private static final String COMMAND_PREFIX = "/";
+
     private final CommandContainer commandContainer;
     private final InfoCommandImpl infoCommand;
 
