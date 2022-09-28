@@ -39,6 +39,10 @@ public class EmployeeInlineKeyboard {
                 CallbackData.EMPLOYEE_DELETE.getInlineName(),
                 CallbackData.EMPLOYEE_DELETE.getCommandName()));
 
+        EmployeeMenuList.add(InlineKeyboard.getButton(
+                CallbackData.CANCEL.getInlineName(),
+                CallbackData.CANCEL.getCommandName()));
+
         return EmployeeMenuList;
     }
 }

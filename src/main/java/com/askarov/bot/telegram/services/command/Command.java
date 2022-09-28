@@ -7,4 +7,6 @@ public interface Command {
     String getCommandSyntax();
 
     String execute(Update update);
+
+    String waitExecute(Update update);
 }

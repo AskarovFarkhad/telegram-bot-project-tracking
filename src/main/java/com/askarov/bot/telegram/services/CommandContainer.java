@@ -1,11 +1,15 @@
 package com.askarov.bot.telegram.services;
 
+import com.askarov.bot.telegram.enums.CallbackData;
 import com.askarov.bot.telegram.repository.EmployeeRepository;
 import com.askarov.bot.telegram.repository.ProjectRepository;
 import com.askarov.bot.telegram.services.command.Command;
+import com.askarov.bot.telegram.services.command.impl.CancelCommandImpl;
 import com.askarov.bot.telegram.services.command.impl.StartCommandImpl;
 import com.askarov.bot.telegram.services.command.impl.UnknownCommandImpl;
 import com.askarov.bot.telegram.services.command.impl.employee.*;
+import com.askarov.bot.telegram.statecontroller.BotState;
+import com.askarov.bot.telegram.statecontroller.EmployeeDataCache;
 import com.askarov.bot.telegram.util.keyboard.inline.EmployeeInlineKeyboard;
 import com.askarov.bot.telegram.util.keyboard.inline.ProjectInlineKeyboard;
 import com.askarov.bot.telegram.util.keyboard.inline.SearchInlineKeyboard;
@@ -33,6 +37,8 @@ public class CommandContainer {
     private final EmployeeRepository employeeRepository;
     private final ProjectRepository projectRepository;
 
+    private final EmployeeDataCache<Long, CallbackData> employeeDataCache;
+
     private final EmployeeInlineKeyboard employeeInlineKeyboard;
     private final ProjectInlineKeyboard projectInlineKeyboard;
     private final SearchInlineKeyboard searchInlineKeyboard;
@@ -41,11 +47,13 @@ public class CommandContainer {
     public CommandContainer(UnknownCommandImpl unknownCommand,
                             EmployeeRepository employeeRepository,
                             ProjectRepository projectRepository,
+                            EmployeeDataCache<Long, CallbackData> employeeDataCache,
                             EmployeeInlineKeyboard employeeInlineKeyboard,
                             ProjectInlineKeyboard projectInlineKeyboard,
                             SearchInlineKeyboard searchInlineKeyboard) {
 
         this.unknownCommand = unknownCommand;
+        this.employeeDataCache = employeeDataCache;
         this.employeeInlineKeyboard = employeeInlineKeyboard;
         this.projectInlineKeyboard = projectInlineKeyboard;
         this.searchInlineKeyboard = searchInlineKeyboard;
@@ -54,9 +62,10 @@ public class CommandContainer {
 
         commandMap = ImmutableMap.<String, Command>builder()
                 .put(START.getCommandName(), new StartCommandImpl())
-                .put(EMPLOYEE_CREATE.getCommandName(), new CreateEmployeeCommandImpl(employeeRepository))
+                .put(EMPLOYEE_CREATE.getCommandName(), new CreateEmployeeCommandImpl(employeeRepository, employeeDataCache))
                 .put(EMPLOYEE_DELETE.getCommandName(), new DeleteEmployeeCommandImpl(employeeRepository))
                 .put(EMPLOYEE_UPDATE.getCommandName(), new UpdateEmployeeCommandImpl(employeeRepository))
+                .put(CANCEL.getCommandName(), new CancelCommandImpl())
                 .build();
 
         menuMap = ImmutableMap.<String, MenuNavigation>builder()

@@ -16,4 +16,9 @@ public class StartCommandImpl implements Command {
     public String execute(Update update) {
         return  "Приветствую тебя, " + update.getMessage().getFrom().getFirstName() + "!";
     }
+
+    @Override
+    public String waitExecute(Update update) {
+        return null;
+    }
 }

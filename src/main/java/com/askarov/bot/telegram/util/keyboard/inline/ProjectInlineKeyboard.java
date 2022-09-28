@@ -39,6 +39,10 @@ public class ProjectInlineKeyboard {
                 CallbackData.PROJECT_DELETE.getInlineName(),
                 CallbackData.PROJECT_DELETE.getCommandName()));
 
+        ProjectMenuList.add(InlineKeyboard.getButton(
+                CallbackData.CANCEL.getInlineName(),
+                CallbackData.CANCEL.getCommandName()));
+
         return ProjectMenuList;
     }
 }

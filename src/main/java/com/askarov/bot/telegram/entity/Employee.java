@@ -19,7 +19,7 @@ public class Employee {
     private Long id;
 
     @Column(name = "employee_chat_id", nullable = false)
-    private Long employeeChatId;
+    private Long chatId;
 
     @Column(name = "employee_first_name", nullable = false)
     private String employeeFirstName;

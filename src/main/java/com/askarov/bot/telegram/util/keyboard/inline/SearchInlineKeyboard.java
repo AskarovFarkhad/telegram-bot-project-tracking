@@ -39,6 +39,10 @@ public class SearchInlineKeyboard {
                 CallbackData.SEARCH_ALL_EMPLOYEES.getInlineName(),
                 CallbackData.SEARCH_ALL_EMPLOYEES.getCommandName()));
 
+        SearchMenuList.add(InlineKeyboard.getButton(
+                CallbackData.CANCEL.getInlineName(),
+                CallbackData.CANCEL.getCommandName()));
+
         return SearchMenuList;
     }
 }

@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 @Slf4j
 @Component
@@ -30,7 +32,15 @@ public class BotConfig extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
-        handler.updateHandler(this, update);
+        outMessageExecute(handler.updateHandler(update));
+    }
+
+    private void outMessageExecute(SendMessage outMsg) {
+        try {
+            this.execute(outMsg);
+        } catch (TelegramApiException e) {
+            log.error("Error: {}", e.getMessage());
+        }
     }
 
     @Override

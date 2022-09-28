@@ -6,6 +6,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum CallbackData {
 
+    START(
+            "Запуск бота",
+            "/start"),
+
     EMPLOYEE_CREATE(
             "Добавить сотрудника",
             "/create"),
@@ -42,9 +46,9 @@ public enum CallbackData {
             "Список всех сотрудников",
             "/list"),
 
-    START(
-            "Запуск бота",
-                    "/start");
+    CANCEL(
+            "⬅ Назад",
+                    "/cancel");
 
     @Getter
     private final String inlineName;
