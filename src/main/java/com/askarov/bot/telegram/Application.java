@@ -13,8 +13,7 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 @SpringBootApplication
 public class Application {
 
-	final static int RECONNECT_PAUSE = 10_000;
-
+	static final int RECONNECT_PAUSE = 10_000;
 	private static BotConfig bot;
 
 	@Autowired
@@ -31,15 +30,14 @@ public class Application {
 		try {
 			TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
 			telegramBotsApi.registerBot(bot);
-			log.info("registerBot() --> Bot is registered successfully");
-		} catch (TelegramApiException e) {
-			e.printStackTrace();
-			log.error("registerBot() --> Can't connect to Bot" +
-					" Pause " + RECONNECT_PAUSE / 1000 + " sec and try again. Error: " + e.getMessage());
+			log.info("Bot is registered successfully");
+		} catch (TelegramApiException telegramApiException) {
+			log.error("Can't connect to Bot. Pause {} sec and try again. Error: {}",
+					RECONNECT_PAUSE / 1000, telegramApiException.getMessage());
 			try {
 				Thread.sleep(RECONNECT_PAUSE);
-			} catch (InterruptedException e1) {
-				e1.printStackTrace();
+			} catch (InterruptedException interruptedException) {
+				log.error("Error: {}", interruptedException.getMessage());
 			}
 		}
 	}

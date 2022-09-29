@@ -1,10 +1,15 @@
 package com.askarov.bot.telegram.entity;
 
-import com.askarov.bot.telegram.enums.StatusProject;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
+
+import static com.askarov.bot.telegram.enums.ProjectStatus.DEVELOP;
 
 @Data
 @Entity
@@ -25,10 +30,9 @@ public class Project {
     private String projectName;
 
     @Column(name = "project_status")
-    private String statusProject;
+    private String statusProject = DEVELOP.getStatusProject();
 
     @OneToMany(mappedBy = "project")
-    private Set<ProjectRegistration> projectRegistrations;
-
+    private Set<ProjectRegistration> projectRegistrations = new HashSet<>();
 }
 

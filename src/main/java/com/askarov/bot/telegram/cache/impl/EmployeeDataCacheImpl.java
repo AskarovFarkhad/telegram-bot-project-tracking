@@ -1,6 +1,6 @@
-package com.askarov.bot.telegram.statecontroller.impl;
+package com.askarov.bot.telegram.cache.impl;
 
-import com.askarov.bot.telegram.statecontroller.EmployeeDataCache;
+import com.askarov.bot.telegram.cache.EmployeeDataCache;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -28,10 +28,5 @@ public class EmployeeDataCacheImpl<R, T> implements EmployeeDataCache<R, T> {
     @Override
     public void remove(R key) {
         controllerMap.remove(key);
-    }
-
-    @Override
-    public boolean contains(R key) {
-        return controllerMap.containsKey(key);
     }
 }

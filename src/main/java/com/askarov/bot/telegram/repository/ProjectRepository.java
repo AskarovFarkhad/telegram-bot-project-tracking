@@ -10,4 +10,8 @@ import javax.transaction.Transactional;
 @Transactional
 public interface ProjectRepository
         extends JpaRepository<Project, Long> {
+
+    int deleteByProjectNumber(String projectNumber);
+
+    Project getByProjectNumber(String projectNumber);
 }

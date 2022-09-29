@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public enum StatusProject {
+public enum ProjectStatus {
 
     CONTACT("Ознакомление"),
     DEVELOP("Разработка"),

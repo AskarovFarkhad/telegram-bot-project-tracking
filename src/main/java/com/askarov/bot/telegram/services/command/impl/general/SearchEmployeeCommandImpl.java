@@ -1,4 +1,4 @@
-package com.askarov.bot.telegram.services.command.impl.employee;
+package com.askarov.bot.telegram.services.command.impl.general;
 
 import com.askarov.bot.telegram.enums.CallbackDataAndBotState;
 import com.askarov.bot.telegram.repository.EmployeeRepository;
@@ -9,17 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
-import static com.askarov.bot.telegram.enums.CallbackDataAndBotState.*;
+import static com.askarov.bot.telegram.enums.CallbackDataAndBotState.SEARCH_EMPLOYEE;
 
 @Slf4j
 @Service
-public class DeleteEmployeeCommandImpl implements Command {
+public class SearchEmployeeCommandImpl implements Command {
 
     private final EmployeeRepository employeeRepository;
     private final EmployeeDataCache<Long, CallbackDataAndBotState> employeeDataCache;
 
     @Autowired
-    public DeleteEmployeeCommandImpl(EmployeeRepository employeeRepository,
+    public SearchEmployeeCommandImpl(EmployeeRepository employeeRepository,
                                      EmployeeDataCache<Long, CallbackDataAndBotState> employeeDataCache) {
         this.employeeRepository = employeeRepository;
         this.employeeDataCache = employeeDataCache;
@@ -27,27 +27,18 @@ public class DeleteEmployeeCommandImpl implements Command {
 
     @Override
     public String getCommandSyntax() {
-        return EMPLOYEE_DELETE.getCommandName();
+        return SEARCH_EMPLOYEE.getCommandName();
     }
 
     @Override
     public String execute(Update update, Long chatId) {
-        String reply;
-
-        if (employeeRepository.deleteByChatId(chatId) == 1) {
-            reply = "Вы удалены из списка сотрудников! ✅";
-        } else {
-            reply = "Вы отсутствуете в списке сотрудников ❌";
-        }
-
-        log.info("Command {}, reply message {}", this.getCommandSyntax(), reply);
-        employeeDataCache.updateIfPresent(chatId, START);
-        return reply;
+        // TODO Не сделано
+        String[] empDataCreate = update.getMessage().getText().trim().split("\\s");
+        return null;
     }
 
-    @Override
     public String waitExecute(Update update, Long chatId) {
-        employeeDataCache.updateIfPresent(chatId, EMPLOYEE_DELETE);
-        return execute(update, chatId);
+        employeeDataCache.updateIfPresent(chatId, SEARCH_EMPLOYEE);
+        return "Введите данные по форме:\n<b><i>Фамилия Имя Отчество</i></b>";
     }
 }

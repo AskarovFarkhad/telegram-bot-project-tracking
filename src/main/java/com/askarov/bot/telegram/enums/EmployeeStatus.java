@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public enum StatusEmployee {
+public enum EmployeeStatus {
 
     WORK("Офис"),
     VACATION("Отпуск"),

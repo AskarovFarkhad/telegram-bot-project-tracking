@@ -1,6 +1,5 @@
 package com.askarov.bot.telegram.util.menu;
 
-import com.askarov.bot.telegram.services.command.Command;
 import com.askarov.bot.telegram.enums.MainMenu;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.Update;

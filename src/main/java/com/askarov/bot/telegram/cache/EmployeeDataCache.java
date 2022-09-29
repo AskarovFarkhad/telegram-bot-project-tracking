@@ -1,4 +1,4 @@
-package com.askarov.bot.telegram.statecontroller;
+package com.askarov.bot.telegram.cache;
 
 public interface EmployeeDataCache<R, T>  {
 
@@ -9,6 +9,4 @@ public interface EmployeeDataCache<R, T>  {
     T get(R key);
 
     void remove(R key);
-
-    boolean contains(R key);
 }

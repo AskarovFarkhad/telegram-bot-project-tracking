@@ -11,5 +11,7 @@ import javax.transaction.Transactional;
 public interface EmployeeRepository
         extends JpaRepository<Employee, Long> {
 
-    int deleteByChatId(Long ChatId);
+    int deleteByChatId(Long chatId);
+
+    Employee getByChatId(Long chatId);
 }

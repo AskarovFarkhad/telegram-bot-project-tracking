@@ -1,9 +1,10 @@
 package com.askarov.bot.telegram.entity;
 
-import com.askarov.bot.telegram.enums.StatusEmployee;
+import com.askarov.bot.telegram.enums.EmployeeStatus;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -34,9 +35,9 @@ public class Employee {
     private String employeePost;
 
     @Column(name = "employee_status")
-    private String employeeStatus = StatusEmployee.WORK.getStatusEmployee();
+    private String employeeStatus = EmployeeStatus.WORK.getStatusEmployee();
 
     @OneToMany(mappedBy = "employee")
-    private Set<ProjectRegistration> projectRegistrations;
+    private Set<ProjectRegistration> projectRegistrations = new HashSet<>();
 
 }

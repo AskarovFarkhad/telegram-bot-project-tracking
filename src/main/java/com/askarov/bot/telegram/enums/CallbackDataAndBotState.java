@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public enum CallbackData {
+public enum CallbackDataAndBotState {
 
     START(
             "Запуск бота",
@@ -16,11 +16,11 @@ public enum CallbackData {
 
     EMPLOYEE_DELETE(
             "Удалить сотрудника",
-            "/update"),
+            "/delete"),
 
     EMPLOYEE_UPDATE(
             "Обновить данные сотрудника",
-            "/delete"),
+            "/update"),
 
     PROJECT_ADD(
             "Добавить проект",

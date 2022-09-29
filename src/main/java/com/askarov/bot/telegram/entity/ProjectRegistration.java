@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 @Entity
@@ -28,7 +28,7 @@ public class ProjectRegistration {
     @JoinColumn(name = "employee_id", nullable = false)
     private Employee employee;
 
-    @Column(name = "start_date", nullable = false)
-    private LocalDateTime registeredDate;
+    @Column(name = "start_date")
+    private LocalDate registeredDate;
 
 }

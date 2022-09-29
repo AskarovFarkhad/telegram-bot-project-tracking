@@ -1,9 +1,9 @@
 package com.askarov.bot.telegram.services.handler.msg.impl;
 
-import com.askarov.bot.telegram.enums.CallbackData;
-import com.askarov.bot.telegram.services.CommandContainer;
+import com.askarov.bot.telegram.enums.CallbackDataAndBotState;
+import com.askarov.bot.telegram.services.CommandContext;
 import com.askarov.bot.telegram.services.handler.msg.MsgHandler;
-import com.askarov.bot.telegram.statecontroller.EmployeeDataCache;
+import com.askarov.bot.telegram.cache.EmployeeDataCache;
 import com.askarov.bot.telegram.util.keyboard.ReplyKeyboard;
 import com.askarov.bot.telegram.util.menu.InfoMenuNavigation;
 import lombok.AllArgsConstructor;
@@ -21,9 +21,9 @@ public class MsgHandlerImpl implements MsgHandler {
 
     private static final String COMMAND_PREFIX = "/";
 
-    private final CommandContainer commandContainer;
+    private final CommandContext commandContext;
     private final InfoMenuNavigation infoCommand;
-    private final EmployeeDataCache<Long, CallbackData> employeeDataCache;
+    private final EmployeeDataCache<Long, CallbackDataAndBotState> employeeDataCache;
 
     @Override
     public SendMessage outMessageText(Update update, String text, Long chatId) {
@@ -33,18 +33,18 @@ public class MsgHandlerImpl implements MsgHandler {
         outMsg.setReplyMarkup(ReplyKeyboard.getReplyKeyboardMarkup());
 
         if (text.equals("/start")) {
-            employeeDataCache.addIfAbsent(chatId, CallbackData.START);
-            outMsg.setText(commandContainer.retrieveCommand("/start").execute(update));
+            employeeDataCache.addIfAbsent(chatId, CallbackDataAndBotState.START);
+            outMsg.setText(commandContext.retrieveCommand("/start").execute(update, chatId));
         } else if (INFO.getMenu().equals(text)) {
             outMsg.setText(infoCommand.execute(update));
-        } else if (commandContainer.getMenuMap().containsKey(text)) {
+        } else if (commandContext.getMenuMap().containsKey(text)) {
             outMsg.setText("Выберите действие: ");
-            outMsg.setReplyMarkup(commandContainer.retrieveMenu(text).execute());
+            outMsg.setReplyMarkup(commandContext.retrieveMenu(text).execute());
         } else if (text.startsWith(COMMAND_PREFIX)) {
-            outMsg.setText(commandContainer.retrieveCommand(text.trim()).waitExecute(update));
+            outMsg.setText(commandContext.retrieveCommand(text.trim()).waitExecute(update, chatId));
         } else {
-            CallbackData botState = employeeDataCache.get(chatId);
-            outMsg.setText(commandContainer.retrieveCommand(botState.getCommandName()).execute(update));
+            CallbackDataAndBotState botState = employeeDataCache.get(chatId);
+            outMsg.setText(commandContext.retrieveCommand(botState.getCommandName()).execute(update, chatId));
         }
         return outMsg;
     }

@@ -2,7 +2,6 @@ package com.askarov.bot.telegram.services.handler.update.impl;
 
 import com.askarov.bot.telegram.services.handler.msg.impl.MsgHandlerImpl;
 import com.askarov.bot.telegram.services.handler.update.UpdateHandler;
-import com.askarov.bot.telegram.statecontroller.BotState;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,30 +20,20 @@ public class UpdateHandlerImpl implements UpdateHandler {
 
     @Override
     public SendMessage updateHandler(Update update) {
-
         SendMessage replyMessage = null;
 
         if (update.hasMessage()) {
             Message message = update.getMessage();
-            String chatId = message.getChatId().toString();
+            Long chatId = message.getChatId();
             log.info("New message from User: {}, chatId: {}, with text: {}",
                     message.getFrom().getUserName(), chatId, message.getText());
-
-            replyMessage = msgHandler.outMessageText(
-                    update,
-                    message.getText(),
-                    message.getChatId());
-
+            replyMessage = msgHandler.outMessageText(update, message.getText(), chatId);
         } else if (update.hasCallbackQuery()) {
             CallbackQuery callbackQuery = update.getCallbackQuery();
-            String chatId = callbackQuery.getFrom().getId().toString();
+            Long chatId = callbackQuery.getFrom().getId();
             log.info("New CallbackQuery from User: {}, userId:{}, data:{}",
                     callbackQuery.getFrom().getUserName(), chatId, callbackQuery.getData());
-
-            replyMessage = msgHandler.outMessageText(
-                    update,
-                    callbackQuery.getData(),
-                    callbackQuery.getFrom().getId());
+            replyMessage = msgHandler.outMessageText(update, callbackQuery.getData(), chatId);
         }
 
         return replyMessage;
