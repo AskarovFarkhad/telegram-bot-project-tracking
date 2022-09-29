@@ -37,6 +37,7 @@ public class DeleteProjectCommandImpl implements Command {
         String reply;
 
         try {
+            employeeDataCache.updateIfPresent(chatId, START);
             reply = "Проект удалён! ✅";
             // TODO Не сделано
         } catch (Exception e) {
@@ -44,7 +45,6 @@ public class DeleteProjectCommandImpl implements Command {
             reply = "Не удалось удалить проект ❌";
         }
 
-        employeeDataCache.updateIfPresent(chatId, START);
         log.info("Command {}, reply message {}", this.getCommandSyntax(), reply);
         return reply;
     }

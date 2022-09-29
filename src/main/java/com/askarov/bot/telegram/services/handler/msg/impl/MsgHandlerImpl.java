@@ -13,6 +13,7 @@ import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
+import static com.askarov.bot.telegram.enums.CallbackDataAndBotState.START;
 import static com.askarov.bot.telegram.enums.MainMenu.INFO;
 
 @Service
@@ -33,7 +34,7 @@ public class MsgHandlerImpl implements MsgHandler {
         outMsg.setReplyMarkup(ReplyKeyboard.getReplyKeyboardMarkup());
 
         if (text.equals("/start")) {
-            employeeDataCache.addIfAbsent(chatId, CallbackDataAndBotState.START);
+            employeeDataCache.addIfAbsent(chatId, START);
             outMsg.setText(commandContext.retrieveCommand("/start").execute(update, chatId));
         } else if (INFO.getMenu().equals(text)) {
             outMsg.setText(infoCommand.execute(update));

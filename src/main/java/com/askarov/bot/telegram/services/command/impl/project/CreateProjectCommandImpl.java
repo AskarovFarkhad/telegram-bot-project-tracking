@@ -67,10 +67,12 @@ public class CreateProjectCommandImpl implements Command {
                 reply = "Сначала добавьте сотрудника \uD83D\uDD04";
             } else if (projectRepository.getByProjectNumber(project.getProjectNumber()) != null) {
                 projectRegistrationRepository.save(projectRegistration);
+                employeeDataCache.updateIfPresent(chatId, START);
                 reply = "Проект зарегистрирован ✅";
             } else {
                 projectRepository.save(project);
                 projectRegistrationRepository.save(projectRegistration);
+                employeeDataCache.updateIfPresent(chatId, START);
                 reply = "Проект зарегистрирован ✅";
             }
         } catch (Exception e) {
@@ -78,7 +80,6 @@ public class CreateProjectCommandImpl implements Command {
             reply = "Не удалось добавить проект ❌";
         }
 
-        employeeDataCache.updateIfPresent(chatId, START);
         log.info("Command {}, reply message {}", this.getCommandSyntax(), reply);
         return reply;
     }

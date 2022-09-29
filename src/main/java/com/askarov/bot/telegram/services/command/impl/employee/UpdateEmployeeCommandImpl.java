@@ -46,6 +46,7 @@ public class UpdateEmployeeCommandImpl implements Command {
                 employee.setEmployeePost(empDataUpdate[3]);
                 employeeRepository.save(employee);
                 reply = "Ваши данные обновлены! ✅";
+                employeeDataCache.updateIfPresent(chatId, START);
             } else {
                 reply = "Не удалось обновить данные ❌";
             }
@@ -55,7 +56,6 @@ public class UpdateEmployeeCommandImpl implements Command {
         }
 
         log.info("Command {}, reply message {}", this.getCommandSyntax(), reply);
-        employeeDataCache.updateIfPresent(chatId, START);
         return reply;
     }
 

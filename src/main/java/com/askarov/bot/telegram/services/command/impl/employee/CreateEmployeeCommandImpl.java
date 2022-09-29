@@ -47,8 +47,10 @@ public class CreateEmployeeCommandImpl implements Command {
                     .build();
             if (employeeRepository.getByChatId(chatId) != null) {
                 reply = "Вы уже есть в списке! ✅";
+                employeeDataCache.updateIfPresent(chatId, START);
             } else {
                 employeeRepository.save(employee);
+                employeeDataCache.updateIfPresent(chatId, START);
                 reply = "Вы добавлены! ✅";
             }
         } catch (Exception e) {
@@ -57,7 +59,6 @@ public class CreateEmployeeCommandImpl implements Command {
         }
 
         log.info("Command {}, reply message {}", this.getCommandSyntax(), reply);
-        employeeDataCache.updateIfPresent(chatId, START);
         return reply;
     }
 

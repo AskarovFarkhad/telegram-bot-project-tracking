@@ -14,6 +14,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import java.util.List;
 
 import static com.askarov.bot.telegram.enums.CallbackDataAndBotState.SEARCH_ALL_EMPLOYEES;
+import static com.askarov.bot.telegram.enums.CallbackDataAndBotState.START;
 
 @Slf4j
 @Service
@@ -52,6 +53,9 @@ public class GetAllEmployeeCommandImpl implements Command {
                     .append("<b>Статус:</b> ").append(employee.getEmployeeStatus()).append("\n\n")
                     .append("<b>Проекты:</b> ").append(" "));
         // TODO Сделано не полностью, как вытащить проекты?
+
+        log.info("Command {}, reply message {}", this.getCommandSyntax(), reply);
+        employeeDataCache.updateIfPresent(chatId, START);
         return reply.toString();
     }
 
