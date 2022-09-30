@@ -5,6 +5,7 @@ import com.askarov.bot.telegram.enums.CallbackDataAndBotState;
 import com.askarov.bot.telegram.repository.EmployeeRepository;
 import com.askarov.bot.telegram.services.command.Command;
 import com.askarov.bot.telegram.cache.EmployeeDataCache;
+import com.askarov.bot.telegram.services.handler.text.TextHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,7 +44,7 @@ public class CreateEmployeeCommandImpl implements Command {
                     .employeeLastName(empDataCreate[0])
                     .employeeFirstName(empDataCreate[1])
                     .employeePatronymic(empDataCreate[2])
-                    .employeePost(empDataCreate[3])
+                    .employeePost(TextHandler.employeePostToString(empDataCreate))
                     .build();
             if (employeeRepository.getByChatId(chatId) != null) {
                 reply = "Вы уже есть в списке! ✅";
@@ -54,7 +55,8 @@ public class CreateEmployeeCommandImpl implements Command {
                 reply = "Вы добавлены! ✅";
             }
         } catch (Exception e) {
-            log.error("Command {}, Error: {}", this.getCommandSyntax(), e.getMessage());
+            log.error("Status {}, Command {}, Error: {}", employeeDataCache.get(chatId),
+                    this.getCommandSyntax(), e.getMessage());
             reply = "Не удалось добавить сотрудника ❌";
         }
 

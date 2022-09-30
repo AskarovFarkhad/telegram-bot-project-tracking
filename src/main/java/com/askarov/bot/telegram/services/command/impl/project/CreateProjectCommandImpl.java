@@ -9,6 +9,7 @@ import com.askarov.bot.telegram.repository.ProjectRegistrationRepository;
 import com.askarov.bot.telegram.repository.ProjectRepository;
 import com.askarov.bot.telegram.services.command.Command;
 import com.askarov.bot.telegram.cache.EmployeeDataCache;
+import com.askarov.bot.telegram.services.handler.text.TextHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,7 +55,7 @@ public class CreateProjectCommandImpl implements Command {
 
             Project project = Project.builder()
                     .projectNumber(projectDataCreate[0])
-                    .projectName(projectDataCreate[1])
+                    .projectName(TextHandler.projectNameToString(projectDataCreate))
                     .build();
 
             ProjectRegistration projectRegistration = ProjectRegistration.builder()
@@ -76,7 +77,8 @@ public class CreateProjectCommandImpl implements Command {
                 reply = "Проект зарегистрирован ✅";
             }
         } catch (Exception e) {
-            log.error("Command {}, Error: {}", this.getCommandSyntax(), e.getMessage());
+            log.error("Status {}, Command {}, Error: {}", employeeDataCache.get(chatId),
+                    this.getCommandSyntax(), e.getMessage());
             reply = "Не удалось добавить проект ❌";
         }
 

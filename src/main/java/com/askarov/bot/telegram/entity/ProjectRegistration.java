@@ -20,7 +20,7 @@ public class ProjectRegistration {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "project_id", nullable = false)
     private Project project;
 

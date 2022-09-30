@@ -1,6 +1,7 @@
 package com.askarov.bot.telegram.services.command.impl.general;
 
 import com.askarov.bot.telegram.entity.Employee;
+import com.askarov.bot.telegram.entity.ProjectRegistration;
 import com.askarov.bot.telegram.enums.CallbackDataAndBotState;
 import com.askarov.bot.telegram.repository.EmployeeRepository;
 import com.askarov.bot.telegram.repository.ProjectRegistrationRepository;
@@ -42,17 +43,23 @@ public class GetAllEmployeeCommandImpl implements Command {
     public String execute(Update update, Long chatId) {
         List<Employee> employeeList = employeeRepository.findAll();
         StringBuilder reply = new StringBuilder();
-        employeeList.forEach(employee ->
-            reply
-                    .append(employee.getId()).append("\n")
-                    .append("<b>Данные:</b> ")
-                    .append(employee.getEmployeeLastName()).append((" "))
-                    .append(employee.getEmployeeFirstName()).append(" ")
-                    .append(employee.getEmployeePatronymic()).append("\n")
-                    .append("<b>Должность:</b> ").append(employee.getEmployeePost()).append("\n")
-                    .append("<b>Статус:</b> ").append(employee.getEmployeeStatus()).append("\n\n")
-                    .append("<b>Проекты:</b> ").append(" "));
-        // TODO Сделано не полностью, как вытащить проекты?
+        employeeList.forEach(employee -> {
+                    reply
+                            .append(employee.getId()).append("\n")
+                            .append("<b>Данные:</b> ")
+                            .append(employee.getEmployeeLastName()).append((" "))
+                            .append(employee.getEmployeeFirstName()).append(" ")
+                            .append(employee.getEmployeePatronymic()).append("\n")
+                            .append("<b>Должность:</b> ").append(employee.getEmployeePost()).append("\n\n")
+                            .append("<b>Проекты:</b> ").append("\n");
+
+                    projectRegistrationRepository.getByEmployee(employee).forEach(projectRegistration ->
+                            reply
+                                    .append(projectRegistration.getRegisteredDate()).append(" --- ")
+                                    .append(projectRegistration.getProject().getProjectNumber()).append(" --- ")
+                                    .append(projectRegistration.getProject().getProjectName()).append("\n"));
+                }
+        );
 
         log.info("Command {}, reply message {}", this.getCommandSyntax(), reply);
         employeeDataCache.updateIfPresent(chatId, START);

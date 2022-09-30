@@ -7,13 +7,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Repository
 @Transactional
 public interface ProjectRegistrationRepository
         extends JpaRepository<ProjectRegistration, Long> {
 
-    ProjectRegistration getByEmployee(Employee employee);
+    List<ProjectRegistration> getByEmployee(Employee employee);
 
-    ProjectRegistration getByProject(Project project);
+    List<ProjectRegistration> getByProject(Project project);
 }
