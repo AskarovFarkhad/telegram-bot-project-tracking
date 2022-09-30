@@ -9,8 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
-import static com.askarov.bot.telegram.enums.CallbackDataAndBotState.PROJECT_DELETE;
-import static com.askarov.bot.telegram.enums.CallbackDataAndBotState.START;
+import static com.askarov.bot.telegram.enums.CallbackDataAndBotState.*;
 
 @Slf4j
 @Service

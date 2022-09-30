@@ -34,5 +34,11 @@ public class Project {
 
     @OneToMany(mappedBy = "project")
     private Set<ProjectRegistration> projectRegistrations = new HashSet<>();
+
+    @Override
+    public String toString() {
+        return getProjectNumber() + " --- " +
+                getProjectName() + "\n";
+    }
 }
 

@@ -17,12 +17,11 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.time.LocalDate;
 
-import static com.askarov.bot.telegram.enums.CallbackDataAndBotState.PROJECT_ADD;
-import static com.askarov.bot.telegram.enums.CallbackDataAndBotState.START;
+import static com.askarov.bot.telegram.enums.CallbackDataAndBotState.*;
 
 @Slf4j
 @Service
-public class CreateProjectCommandImpl implements Command {
+public class AddProjectCommandImpl implements Command {
 
     private final ProjectRepository projectRepository;
     private final EmployeeRepository employeeRepository;
@@ -30,10 +29,10 @@ public class CreateProjectCommandImpl implements Command {
     private final EmployeeDataCache<Long, CallbackDataAndBotState> employeeDataCache;
 
     @Autowired
-    public CreateProjectCommandImpl(ProjectRepository projectRepository,
-                                    EmployeeRepository employeeRepository,
-                                    ProjectRegistrationRepository projectRegistrationRepository,
-                                    EmployeeDataCache<Long, CallbackDataAndBotState> employeeDataCache) {
+    public AddProjectCommandImpl(ProjectRepository projectRepository,
+                                 EmployeeRepository employeeRepository,
+                                 ProjectRegistrationRepository projectRegistrationRepository,
+                                 EmployeeDataCache<Long, CallbackDataAndBotState> employeeDataCache) {
         this.projectRepository = projectRepository;
         this.employeeRepository = employeeRepository;
         this.projectRegistrationRepository = projectRegistrationRepository;
@@ -88,6 +87,6 @@ public class CreateProjectCommandImpl implements Command {
 
     public String waitExecute(Update update, Long chatId) {
         employeeDataCache.updateIfPresent(chatId, PROJECT_ADD);
-        return "Введите данные проекта по форме:\n<b><i>Номер Название</i></b>";
+        return "Введите данные проекта по форме:\n<b><i>Проект(номер.год) Название</i></b>";
     }
 }

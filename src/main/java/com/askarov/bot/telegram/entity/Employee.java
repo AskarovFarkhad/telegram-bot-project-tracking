@@ -40,4 +40,13 @@ public class Employee {
     @OneToMany(mappedBy = "employee")
     private Set<ProjectRegistration> projectRegistrations = new HashSet<>();
 
+    @Override
+    public String toString() {
+        return getId() + "\n" +
+                "<b>Данные:</b> " +
+                getEmployeeLastName() + (" ") +
+                getEmployeeFirstName() + " " +
+                getEmployeePatronymic() + "\n" +
+                "<b>Должность:</b> " + getEmployeePost() + "\n\n";
+    }
 }
