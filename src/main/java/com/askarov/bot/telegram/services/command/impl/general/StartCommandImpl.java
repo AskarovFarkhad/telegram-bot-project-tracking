@@ -3,6 +3,7 @@ package com.askarov.bot.telegram.services.command.impl.general;
 import com.askarov.bot.telegram.cache.impl.EmployeeDataCacheImpl;
 import com.askarov.bot.telegram.enums.CallbackDataAndBotState;
 import com.askarov.bot.telegram.services.command.Command;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -10,14 +11,10 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import static com.askarov.bot.telegram.enums.CallbackDataAndBotState.START;
 
 @Service
+@AllArgsConstructor(onConstructor_ = {@Autowired})
 public class StartCommandImpl implements Command {
 
     EmployeeDataCacheImpl<Long, CallbackDataAndBotState> employeeDataCache;
-
-    @Autowired
-    public StartCommandImpl(EmployeeDataCacheImpl<Long, CallbackDataAndBotState> employeeDataCache) {
-        this.employeeDataCache = employeeDataCache;
-    }
 
     @Override
     public String getCommandSyntax() {

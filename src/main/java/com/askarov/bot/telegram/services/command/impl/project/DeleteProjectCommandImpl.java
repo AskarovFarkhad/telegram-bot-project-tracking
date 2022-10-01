@@ -6,6 +6,7 @@ import com.askarov.bot.telegram.enums.CallbackDataAndBotState;
 import com.askarov.bot.telegram.repository.ProjectRegistrationRepository;
 import com.askarov.bot.telegram.repository.ProjectRepository;
 import com.askarov.bot.telegram.services.command.Command;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,20 +16,12 @@ import static com.askarov.bot.telegram.enums.CallbackDataAndBotState.*;
 
 @Slf4j
 @Service
+@AllArgsConstructor(onConstructor_ = {@Autowired})
 public class DeleteProjectCommandImpl implements Command {
 
     private final ProjectRepository projectRepository;
     private final ProjectRegistrationRepository projectRegistrationRepository;
     private final EmployeeDataCache<Long, CallbackDataAndBotState> employeeDataCache;
-
-    @Autowired
-    public DeleteProjectCommandImpl(ProjectRepository employeeRepository,
-                                    ProjectRegistrationRepository projectRegistrationRepository,
-                                    EmployeeDataCache<Long, CallbackDataAndBotState> employeeDataCache) {
-        this.projectRepository = employeeRepository;
-        this.projectRegistrationRepository = projectRegistrationRepository;
-        this.employeeDataCache = employeeDataCache;
-    }
 
     @Override
     public String getCommandSyntax() {

@@ -44,7 +44,11 @@ public enum CallbackDataAndBotState {
 
     SEARCH_ALL_EMPLOYEES(
             "Список всех сотрудников",
-            "/list");
+            "/list"),
+
+    ADMIN(
+            "Администратор",
+            "/admin");
 
     @Getter
     private final String commandName;
