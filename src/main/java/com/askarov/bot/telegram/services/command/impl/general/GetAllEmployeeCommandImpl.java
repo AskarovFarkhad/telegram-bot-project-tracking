@@ -35,7 +35,7 @@ public class GetAllEmployeeCommandImpl implements Command {
 
     @Override
     public String getCommandSyntax() {
-        return SEARCH_ALL_EMPLOYEES.getCommandName();
+        return SEARCH_ALL_EMPLOYEES.getSyntax();
     }
 
     @Override
@@ -44,8 +44,9 @@ public class GetAllEmployeeCommandImpl implements Command {
 
         String reply = EmployeePrintHandler.printData(employeeList, projectRegistrationRepository);
 
-        log.info("Command {}, reply message {}", this.getCommandSyntax(), reply);
         employeeDataCache.updateIfPresent(chatId, START);
+        log.info("Status {}, Command {}, reply message {}",
+                employeeDataCache.get(chatId), this.getCommandSyntax(), reply);
         return reply;
     }
 

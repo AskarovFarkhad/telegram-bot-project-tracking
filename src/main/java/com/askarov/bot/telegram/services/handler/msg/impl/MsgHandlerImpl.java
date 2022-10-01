@@ -45,7 +45,7 @@ public class MsgHandlerImpl implements MsgHandler {
             outMsg.setText(commandContext.retrieveCommand(text.trim()).waitExecute(update, chatId));
         } else {
             CallbackDataAndBotState botState = employeeDataCache.get(chatId);
-            outMsg.setText(commandContext.retrieveCommand(botState.getCommandName()).execute(update, chatId));
+            outMsg.setText(commandContext.retrieveCommand(botState.getSyntax()).execute(update, chatId));
         }
         return outMsg;
     }

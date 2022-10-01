@@ -27,21 +27,20 @@ public class DeleteEmployeeCommandImpl implements Command {
 
     @Override
     public String getCommandSyntax() {
-        return EMPLOYEE_DELETE.getCommandName();
+        return EMPLOYEE_DELETE.getSyntax();
     }
 
     @Override
     public String execute(Update update, Long chatId) {
         String reply;
-
         if (employeeRepository.deleteByChatId(chatId) == 1) {
             reply = "Вы удалены из списка сотрудников! ✅";
         } else {
             reply = "Вы отсутствуете в списке сотрудников ❌";
         }
-
-        log.info("Command {}, reply message {}", this.getCommandSyntax(), reply);
         employeeDataCache.updateIfPresent(chatId, START);
+        log.info("Status {}, Command {}, reply message {}",
+                employeeDataCache.get(chatId), this.getCommandSyntax(), reply);
         return reply;
     }
 

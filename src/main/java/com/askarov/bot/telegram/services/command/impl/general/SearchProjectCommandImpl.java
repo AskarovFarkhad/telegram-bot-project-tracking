@@ -32,7 +32,7 @@ public class SearchProjectCommandImpl implements Command {
 
     @Override
     public String getCommandSyntax() {
-        return SEARCH_PROJECT.getCommandName();
+        return SEARCH_PROJECT.getSyntax();
     }
 
     @Override
@@ -46,8 +46,9 @@ public class SearchProjectCommandImpl implements Command {
                 reply.append(projectRegistration.getEmployee())
         );
 
-        log.info("Command {}, reply message {}", this.getCommandSyntax(), reply);
         employeeDataCache.updateIfPresent(chatId, START);
+        log.info("Status {}, Command {}, reply message {}",
+                employeeDataCache.get(chatId), this.getCommandSyntax(), reply);
         return reply.toString();
     }
 

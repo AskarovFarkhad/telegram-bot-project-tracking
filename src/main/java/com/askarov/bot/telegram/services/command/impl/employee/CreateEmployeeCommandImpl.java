@@ -29,7 +29,7 @@ public class CreateEmployeeCommandImpl implements Command {
 
     @Override
     public String getCommandSyntax() {
-        return EMPLOYEE_CREATE.getCommandName();
+        return EMPLOYEE_CREATE.getSyntax();
     }
 
     @Override
@@ -47,19 +47,19 @@ public class CreateEmployeeCommandImpl implements Command {
                     .build();
             if (employeeRepository.getByChatId(chatId) != null) {
                 reply = "Вы уже есть в списке! ✅";
-                employeeDataCache.updateIfPresent(chatId, START);
             } else {
                 employeeRepository.save(employee);
-                employeeDataCache.updateIfPresent(chatId, START);
                 reply = "Вы добавлены! ✅";
             }
+            employeeDataCache.updateIfPresent(chatId, START);
         } catch (Exception e) {
-            log.error("Status {}, Command {}, Error: {}", employeeDataCache.get(chatId),
-                    this.getCommandSyntax(), e.getMessage());
+            log.error("Status {}, Command {}, Error: {}",
+                    employeeDataCache.get(chatId), this.getCommandSyntax(), e.getMessage());
             reply = "Не удалось добавить сотрудника ❌";
         }
 
-        log.info("Command {}, reply message {}", this.getCommandSyntax(), reply);
+        log.info("Status {}, Command {}, reply message {}",
+                employeeDataCache.get(chatId), this.getCommandSyntax(), reply);
         return reply;
     }
 

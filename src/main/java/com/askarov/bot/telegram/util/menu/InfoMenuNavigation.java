@@ -11,9 +11,18 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 public class InfoMenuNavigation {
 
     private final static String INFO_MESSAGE = ", \n\n" +
-            "В меню <b><i>" + MainMenu.EMPLOYEE.getMenu() + "</i></b> можно управлять своими данными.\n\n" +
-            "В меню <b><i>" + MainMenu.PROJECT.getMenu() + "</i></b> можно управлять проектами.\n\n" +
-            "В меню <b><i>" + MainMenu.SEARCH.getMenu() + "</i></b> можно найти своего коллегу или же проект.\n\n";
+            "В меню <b><i>" + MainMenu.EMPLOYEE.getMenu() + "</i></b> можно:\n\n" +
+            "/create - добавить сотрудника (себя);\n" +
+            "/update - обновить данные (себя);\n" +
+            "/delete - удалить сотрудника (себя); \n\n" +
+            "В меню <b><i>" + MainMenu.PROJECT.getMenu() + "</i></b> можно:\n\n" +
+            "/project - добавить проект;\n" +
+            "/update_pr - обновить название проекта по номеру;\n" +
+            "/delete_pr - удалить проект (доступно для /admin);\n\n" +
+            "В меню <b><i>" + MainMenu.SEARCH.getMenu() + "</i></b> можно:\n\n" +
+            "/search_emp - найти сотрудника по фамилии;\n" +
+            "/search_pr - найти проект по номеру;\n" +
+            "/list - вывести всех сотрудников с историей проектов;\n\n";
 
     public String getCommandSyntax() {
         return MainMenu.INFO.getMenu();
@@ -22,5 +31,4 @@ public class InfoMenuNavigation {
     public String execute(Update update) {
         return update.getMessage().getFrom().getFirstName() + INFO_MESSAGE;
     }
-
 }

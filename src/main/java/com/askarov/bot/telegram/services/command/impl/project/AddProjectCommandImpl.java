@@ -41,7 +41,7 @@ public class AddProjectCommandImpl implements Command {
 
     @Override
     public String getCommandSyntax() {
-        return PROJECT_ADD.getCommandName();
+        return PROJECT_ADD.getSyntax();
     }
 
     @Override
@@ -67,21 +67,21 @@ public class AddProjectCommandImpl implements Command {
                 reply = "Сначала добавьте сотрудника \uD83D\uDD04";
             } else if (projectRepository.getByProjectNumber(project.getProjectNumber()) != null) {
                 projectRegistrationRepository.save(projectRegistration);
-                employeeDataCache.updateIfPresent(chatId, START);
                 reply = "Проект зарегистрирован ✅";
             } else {
                 projectRepository.save(project);
                 projectRegistrationRepository.save(projectRegistration);
-                employeeDataCache.updateIfPresent(chatId, START);
                 reply = "Проект зарегистрирован ✅";
             }
+            employeeDataCache.updateIfPresent(chatId, START);
         } catch (Exception e) {
-            log.error("Status {}, Command {}, Error: {}", employeeDataCache.get(chatId),
-                    this.getCommandSyntax(), e.getMessage());
+            log.error("Status {}, Command {}, Error: {}",
+                    employeeDataCache.get(chatId), this.getCommandSyntax(), e.getMessage());
             reply = "Не удалось добавить проект ❌";
         }
 
-        log.info("Command {}, reply message {}", this.getCommandSyntax(), reply);
+        log.info("Status {}, Command {}, reply message {}",
+                employeeDataCache.get(chatId), this.getCommandSyntax(), reply);
         return reply;
     }
 

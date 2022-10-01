@@ -29,7 +29,7 @@ public class UpdateEmployeeCommandImpl implements Command {
 
     @Override
     public String getCommandSyntax() {
-        return EMPLOYEE_UPDATE.getCommandName();
+        return EMPLOYEE_UPDATE.getSyntax();
     }
 
     @Override
@@ -46,18 +46,18 @@ public class UpdateEmployeeCommandImpl implements Command {
                 employee.setEmployeePost(TextHandler.employeePostToString(empDataUpdate));
                 employeeRepository.save(employee);
                 reply = "Ваши данные обновлены! ✅";
-                employeeDataCache.updateIfPresent(chatId, START);
             } else {
                 reply = "Сначала нужно добавиться ❌";
-                employeeDataCache.updateIfPresent(chatId, START);
             }
+            employeeDataCache.updateIfPresent(chatId, START);
         } catch (Exception e) {
-            log.error("Status {}, Command {}, Error: {}", employeeDataCache.get(chatId),
-                    this.getCommandSyntax(), e.getMessage());
+            log.error("Status {}, Command {}, Error: {}",
+                    employeeDataCache.get(chatId), this.getCommandSyntax(), e.getMessage());
             reply = "Не удалось обновить данные ❌";
         }
 
-        log.info("Command {}, reply message {}", this.getCommandSyntax(), reply);
+        log.info("Status {}, Command {}, reply message {}",
+                employeeDataCache.get(chatId), this.getCommandSyntax(), reply);
         return reply;
     }
 

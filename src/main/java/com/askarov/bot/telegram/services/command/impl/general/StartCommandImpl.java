@@ -4,12 +4,14 @@ import com.askarov.bot.telegram.services.command.Command;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
+import static com.askarov.bot.telegram.enums.CallbackDataAndBotState.START;
+
 @Service
 public class StartCommandImpl implements Command {
 
     @Override
     public String getCommandSyntax() {
-        return "/start";
+        return START.getSyntax();
     }
 
     @Override

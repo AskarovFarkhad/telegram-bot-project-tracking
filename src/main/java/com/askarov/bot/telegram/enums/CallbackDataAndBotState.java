@@ -44,14 +44,10 @@ public enum CallbackDataAndBotState {
 
     SEARCH_ALL_EMPLOYEES(
             "Список всех сотрудников",
-            "/list"),
+            "/list");
 
-    CANCEL(
-            "⬅ Назад",
-                    "/cancel");
-
-    @Getter
-    private final String inlineName;
     @Getter
     private final String commandName;
+    @Getter
+    private final String syntax;
 }

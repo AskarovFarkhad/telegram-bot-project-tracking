@@ -32,13 +32,12 @@ public class Project {
     @Column(name = "project_status")
     private String statusProject = DEVELOP.getStatusProject();
 
-    @OneToMany(mappedBy = "project")
+    @OneToMany(mappedBy = "project", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<ProjectRegistration> projectRegistrations = new HashSet<>();
 
     @Override
     public String toString() {
-        return getProjectNumber() + " --- " +
-                getProjectName() + "\n";
+        return getProjectNumber() + " --- " + getProjectName() + "\n";
     }
 }
 

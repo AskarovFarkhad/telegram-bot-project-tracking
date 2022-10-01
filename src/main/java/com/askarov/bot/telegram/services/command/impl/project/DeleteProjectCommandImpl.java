@@ -1,9 +1,11 @@
 package com.askarov.bot.telegram.services.command.impl.project;
 
+import com.askarov.bot.telegram.cache.EmployeeDataCache;
+import com.askarov.bot.telegram.entity.Project;
 import com.askarov.bot.telegram.enums.CallbackDataAndBotState;
+import com.askarov.bot.telegram.repository.ProjectRegistrationRepository;
 import com.askarov.bot.telegram.repository.ProjectRepository;
 import com.askarov.bot.telegram.services.command.Command;
-import com.askarov.bot.telegram.cache.EmployeeDataCache;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,36 +18,45 @@ import static com.askarov.bot.telegram.enums.CallbackDataAndBotState.*;
 public class DeleteProjectCommandImpl implements Command {
 
     private final ProjectRepository projectRepository;
+    private final ProjectRegistrationRepository projectRegistrationRepository;
     private final EmployeeDataCache<Long, CallbackDataAndBotState> employeeDataCache;
 
     @Autowired
     public DeleteProjectCommandImpl(ProjectRepository employeeRepository,
+                                    ProjectRegistrationRepository projectRegistrationRepository,
                                     EmployeeDataCache<Long, CallbackDataAndBotState> employeeDataCache) {
         this.projectRepository = employeeRepository;
+        this.projectRegistrationRepository = projectRegistrationRepository;
         this.employeeDataCache = employeeDataCache;
     }
 
     @Override
     public String getCommandSyntax() {
-        return PROJECT_DELETE.getCommandName();
+        return PROJECT_DELETE.getSyntax();
     }
 
     @Override
     public String execute(Update update, Long chatId) {
         String[] projectDataDelete = update.getMessage().getText().trim().split("\\s");
         String reply;
-
+        Project project = projectRepository.getByProjectNumber(projectDataDelete[0]);
         try {
+            if (project != null) {
+                projectRegistrationRepository.deleteByProject(project);
+                projectRepository.delete(project);
+                reply = "Проект удалён! ✅";
+            } else {
+                reply = "Проект отсутствует! ✅";
+            }
             employeeDataCache.updateIfPresent(chatId, START);
-            reply = "Проект удалён! ✅";
-            // TODO Не сделано
         } catch (Exception e) {
-            log.error("Status {}, Command {}, Error: {}", employeeDataCache.get(chatId),
-                    this.getCommandSyntax(), e.getMessage());
+            log.error("Status {}, Command {}, Error: {}",
+                    employeeDataCache.get(chatId), this.getCommandSyntax(), e.getMessage());
             reply = "Не удалось удалить проект ❌";
         }
 
-        log.info("Command {}, reply message {}", this.getCommandSyntax(), reply);
+        log.info("Status {}, Command {}, reply message {}",
+                employeeDataCache.get(chatId), this.getCommandSyntax(), reply);
         return reply;
     }
 

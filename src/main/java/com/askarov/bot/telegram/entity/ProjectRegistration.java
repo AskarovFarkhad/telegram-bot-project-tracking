@@ -30,5 +30,4 @@ public class ProjectRegistration {
 
     @Column(name = "start_date")
     private LocalDate registeredDate;
-
 }

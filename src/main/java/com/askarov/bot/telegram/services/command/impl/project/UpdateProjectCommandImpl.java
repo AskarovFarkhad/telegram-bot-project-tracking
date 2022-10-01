@@ -29,7 +29,7 @@ public class UpdateProjectCommandImpl implements Command {
 
     @Override
     public String getCommandSyntax() {
-        return PROJECT_UPDATE.getCommandName();
+        return PROJECT_UPDATE.getSyntax();
     }
 
     @Override
@@ -42,18 +42,19 @@ public class UpdateProjectCommandImpl implements Command {
             if (projectRepository.getByProjectNumber(project.getProjectNumber()) != null) {
                 project.setProjectName(TextHandler.projectNameToString(projectDataUpdate));
                 projectRepository.save(project);
-                employeeDataCache.updateIfPresent(chatId, START);
                 reply = "Проект обновлён ✅";
             } else {
                 reply = "Нет проекта с таким номером ✅";
             }
+            employeeDataCache.updateIfPresent(chatId, START);
         } catch (Exception e) {
-            log.error("Status {}, Command {}, Error: {}", employeeDataCache.get(chatId),
-                    this.getCommandSyntax(), e.getMessage());
+            log.error("Status {}, Command {}, Error: {}",
+                    employeeDataCache.get(chatId), this.getCommandSyntax(), e.getMessage());
             reply = "Не удалось обновить проект ❌";
         }
 
-        log.info("Command {}, reply message {}", this.getCommandSyntax(), reply);
+        log.info("Status {}, Command {}, reply message {}",
+                employeeDataCache.get(chatId), this.getCommandSyntax(), reply);
         return reply;
     }
 
