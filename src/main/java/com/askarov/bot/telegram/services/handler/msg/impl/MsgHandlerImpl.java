@@ -33,10 +33,7 @@ public class MsgHandlerImpl implements MsgHandler {
         outMsg.setChatId(chatId);
         outMsg.setReplyMarkup(ReplyKeyboard.getReplyKeyboardMarkup());
 
-        if (text.equals(START.getSyntax())) {
-            employeeDataCache.addIfAbsent(chatId, START);
-            outMsg.setText(commandContext.retrieveCommand(START.getSyntax()).execute(update, chatId));
-        } else if (INFO.getMenu().equals(text)) {
+        if (INFO.getMenu().equals(text)) {
             outMsg.setText(infoCommand.execute(update));
         } else if (commandContext.getMenuMap().containsKey(text)) {
             outMsg.setText("Выберите действие: ");

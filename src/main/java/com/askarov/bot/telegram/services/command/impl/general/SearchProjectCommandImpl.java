@@ -48,6 +48,8 @@ public class SearchProjectCommandImpl implements Command {
 
         if (projectRegList.size() != 0) {
             projectRegList.forEach(projectRegistration -> reply.append(projectRegistration.getEmployee()));
+        } else if (project != null) {
+            reply.append(project).append("Проектом никто не занимается \uD83D\uDD04");
         } else {
             reply.append("Проект не найден ❌");
         }

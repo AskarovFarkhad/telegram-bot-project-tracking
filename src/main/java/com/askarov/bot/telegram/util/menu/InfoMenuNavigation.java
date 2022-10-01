@@ -12,9 +12,9 @@ public class InfoMenuNavigation {
 
     private final static String INFO_MESSAGE = ", \n\n" +
             "В меню <b><i>" + MainMenu.EMPLOYEE.getMenu() + "</i></b> можно:\n\n" +
-            "/create - добавить сотрудника (себя);\n" +
-            "/update - обновить данные (себя);\n" +
-            "/delete - удалить сотрудника (себя); \n\n" +
+            "/create - добавить себя с список;\n" +
+            "/update - обновить свои данные;\n" +
+            "/delete - удалить сотрудника (доступно для /admin); \n\n" +
             "В меню <b><i>" + MainMenu.PROJECT.getMenu() + "</i></b> можно:\n\n" +
             "/project - добавить проект;\n" +
             "/update_pr - обновить название проекта по номеру;\n" +
