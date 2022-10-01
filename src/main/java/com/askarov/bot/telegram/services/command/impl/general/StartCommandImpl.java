@@ -21,6 +21,7 @@ public class StartCommandImpl implements Command {
 
     @Override
     public String waitExecute(Update update, Long chatId) {
+        // TODO return null ?
         return null;
     }
 }

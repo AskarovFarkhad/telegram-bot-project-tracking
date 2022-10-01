@@ -33,9 +33,9 @@ public class MsgHandlerImpl implements MsgHandler {
         outMsg.setChatId(chatId);
         outMsg.setReplyMarkup(ReplyKeyboard.getReplyKeyboardMarkup());
 
-        if (text.equals("/start")) {
+        if (text.equals(START.getSyntax())) {
             employeeDataCache.addIfAbsent(chatId, START);
-            outMsg.setText(commandContext.retrieveCommand("/start").execute(update, chatId));
+            outMsg.setText(commandContext.retrieveCommand(START.getSyntax()).execute(update, chatId));
         } else if (INFO.getMenu().equals(text)) {
             outMsg.setText(infoCommand.execute(update));
         } else if (commandContext.getMenuMap().containsKey(text)) {
@@ -45,7 +45,11 @@ public class MsgHandlerImpl implements MsgHandler {
             outMsg.setText(commandContext.retrieveCommand(text.trim()).waitExecute(update, chatId));
         } else {
             CallbackDataAndBotState botState = employeeDataCache.get(chatId);
-            outMsg.setText(commandContext.retrieveCommand(botState.getSyntax()).execute(update, chatId));
+            if (botState != START) {
+                outMsg.setText(commandContext.retrieveCommand(botState.getSyntax()).execute(update, chatId));
+            } else {
+                outMsg.setText(commandContext.retrieveCommand(null).execute(update, chatId));
+            }
         }
         return outMsg;
     }

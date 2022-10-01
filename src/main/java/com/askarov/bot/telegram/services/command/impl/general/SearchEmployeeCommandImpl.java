@@ -42,8 +42,13 @@ public class SearchEmployeeCommandImpl implements Command {
     public String execute(Update update, Long chatId) {
         String[] empData = update.getMessage().getText().trim().split("\\s");
         List<Employee> employeeList = employeeRepository.getAllByEmployeeLastName(empData[0]);
+        String reply;
 
-        String reply = EmployeePrintHandler.printData(employeeList, projectRegistrationRepository);
+        if (employeeList.size() != 0) {
+            reply = EmployeePrintHandler.printData(employeeList, projectRegistrationRepository);
+        } else {
+            reply = "Сотрудник не найден ❌";
+        }
 
         employeeDataCache.updateIfPresent(chatId, START);
         log.info("Status {}, Command {}, reply message {}",

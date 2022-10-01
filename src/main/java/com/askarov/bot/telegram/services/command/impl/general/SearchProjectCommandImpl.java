@@ -2,6 +2,7 @@ package com.askarov.bot.telegram.services.command.impl.general;
 
 import com.askarov.bot.telegram.cache.EmployeeDataCache;
 import com.askarov.bot.telegram.entity.Project;
+import com.askarov.bot.telegram.entity.ProjectRegistration;
 import com.askarov.bot.telegram.enums.CallbackDataAndBotState;
 import com.askarov.bot.telegram.repository.ProjectRegistrationRepository;
 import com.askarov.bot.telegram.repository.ProjectRepository;
@@ -10,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.Update;
+
+import java.util.List;
 
 import static com.askarov.bot.telegram.enums.CallbackDataAndBotState.*;
 
@@ -41,10 +44,13 @@ public class SearchProjectCommandImpl implements Command {
         StringBuilder reply = new StringBuilder();
 
         Project project = projectRepository.getByProjectNumber(projectData[0]);
+        List<ProjectRegistration> projectRegList = projectRegistrationRepository.getByProject(project);
 
-        projectRegistrationRepository.getByProject(project).forEach(projectRegistration ->
-                reply.append(projectRegistration.getEmployee())
-        );
+        if (projectRegList.size() != 0) {
+            projectRegList.forEach(projectRegistration -> reply.append(projectRegistration.getEmployee()));
+        } else {
+            reply.append("Проект не найден ❌");
+        }
 
         employeeDataCache.updateIfPresent(chatId, START);
         log.info("Status {}, Command {}, reply message {}",

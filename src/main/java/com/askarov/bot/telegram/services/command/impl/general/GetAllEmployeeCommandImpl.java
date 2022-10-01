@@ -41,8 +41,13 @@ public class GetAllEmployeeCommandImpl implements Command {
     @Override
     public String execute(Update update, Long chatId) {
         List<Employee> employeeList = employeeRepository.findAll();
+        String reply;
 
-        String reply = EmployeePrintHandler.printData(employeeList, projectRegistrationRepository);
+        if (employeeList.size() != 0) {
+            reply = EmployeePrintHandler.printData(employeeList, projectRegistrationRepository);
+        } else {
+            reply = "Список сотрудников пуст ❌";
+        }
 
         employeeDataCache.updateIfPresent(chatId, START);
         log.info("Status {}, Command {}, reply message {}",
