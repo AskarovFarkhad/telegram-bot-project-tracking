@@ -1,4 +1,4 @@
-package com.askarov.bot.telegram.services.command.impl;
+package com.askarov.bot.telegram.services.command.impl.general;
 
 import com.askarov.bot.telegram.services.command.Command;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,12 @@ public class UnknownCommandImpl implements Command {
     }
 
     @Override
-    public String execute(Update update) {
+    public String execute(Update update, Long chatId) {
         return "Я не понимаю, что ты хочешь от меня";
+    }
+
+    @Override
+    public String waitExecute(Update update, Long chatId) {
+        return null;
     }
 }

@@ -1,6 +1,6 @@
 package com.askarov.bot.telegram.util.keyboard.inline;
 
-import com.askarov.bot.telegram.enums.CallbackData;
+import com.askarov.bot.telegram.enums.CallbackDataAndBotState;
 import com.askarov.bot.telegram.util.keyboard.InlineKeyboard;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
@@ -28,16 +28,16 @@ public class SearchInlineKeyboard {
         List<List<InlineKeyboardButton>> SearchMenuList = new ArrayList<>();
 
         SearchMenuList.add(InlineKeyboard.getButton(
-                CallbackData.SEARCH_EMPLOYEE.getInlineName(),
-                CallbackData.SEARCH_EMPLOYEE.getCommandName()));
+                CallbackDataAndBotState.SEARCH_EMPLOYEE.getInlineName(),
+                CallbackDataAndBotState.SEARCH_EMPLOYEE.getCommandName()));
 
         SearchMenuList.add(InlineKeyboard.getButton(
-                CallbackData.SEARCH_PROJECT.getInlineName(),
-                CallbackData.SEARCH_PROJECT.getCommandName()));
+                CallbackDataAndBotState.SEARCH_PROJECT.getInlineName(),
+                CallbackDataAndBotState.SEARCH_PROJECT.getCommandName()));
 
         SearchMenuList.add(InlineKeyboard.getButton(
-                CallbackData.SEARCH_ALL_EMPLOYEES.getInlineName(),
-                CallbackData.SEARCH_ALL_EMPLOYEES.getCommandName()));
+                CallbackDataAndBotState.SEARCH_ALL_EMPLOYEES.getInlineName(),
+                CallbackDataAndBotState.SEARCH_ALL_EMPLOYEES.getCommandName()));
 
         return SearchMenuList;
     }

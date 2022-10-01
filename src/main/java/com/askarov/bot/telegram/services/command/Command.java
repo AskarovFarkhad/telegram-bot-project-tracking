@@ -6,5 +6,7 @@ public interface Command {
 
     String getCommandSyntax();
 
-    String execute(Update update);
+    String execute(Update update, Long chatId);
+
+    String waitExecute(Update update, Long chatId);
 }

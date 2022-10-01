@@ -1,9 +1,8 @@
 package com.askarov.bot.telegram.util.menu.impl;
 
-import com.askarov.bot.telegram.util.keyboard.inline.SearchInlineKeyboard;
 import com.askarov.bot.telegram.enums.MainMenu;
+import com.askarov.bot.telegram.util.keyboard.inline.SearchInlineKeyboard;
 import com.askarov.bot.telegram.util.menu.MenuNavigation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 

@@ -1,6 +1,6 @@
 package com.askarov.bot.telegram.util.keyboard.inline;
 
-import com.askarov.bot.telegram.enums.CallbackData;
+import com.askarov.bot.telegram.enums.CallbackDataAndBotState;
 import com.askarov.bot.telegram.util.keyboard.InlineKeyboard;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
@@ -28,16 +28,16 @@ public class ProjectInlineKeyboard {
         List<List<InlineKeyboardButton>> ProjectMenuList = new ArrayList<>();
 
         ProjectMenuList.add(InlineKeyboard.getButton(
-                CallbackData.PROJECT_ADD.getInlineName(),
-                CallbackData.PROJECT_ADD.getCommandName()));
+                CallbackDataAndBotState.PROJECT_ADD.getInlineName(),
+                CallbackDataAndBotState.PROJECT_ADD.getCommandName()));
 
         ProjectMenuList.add(InlineKeyboard.getButton(
-                CallbackData.PROJECT_UPDATE.getInlineName(),
-                CallbackData.PROJECT_UPDATE.getCommandName()));
+                CallbackDataAndBotState.PROJECT_UPDATE.getInlineName(),
+                CallbackDataAndBotState.PROJECT_UPDATE.getCommandName()));
 
         ProjectMenuList.add(InlineKeyboard.getButton(
-                CallbackData.PROJECT_DELETE.getInlineName(),
-                CallbackData.PROJECT_DELETE.getCommandName()));
+                CallbackDataAndBotState.PROJECT_DELETE.getInlineName(),
+                CallbackDataAndBotState.PROJECT_DELETE.getCommandName()));
 
         return ProjectMenuList;
     }
