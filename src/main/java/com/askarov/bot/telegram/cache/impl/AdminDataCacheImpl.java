@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 
 @Component
-public class EmployeeDataCacheImpl<R, T> implements DataCache<R, T> {
+public class AdminDataCacheImpl<R, T> implements DataCache<R, T> {
 
     private final HashMap<R, T> controllerMap = new HashMap<>();
 

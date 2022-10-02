@@ -14,11 +14,11 @@ public class UnknownCommandImpl implements Command {
 
     @Override
     public String execute(Update update, Long chatId) {
-        return "Я не понимаю, что ты хочешь от меня";
+        return "Я не могу, у меня лапки \uD83D\uDC08";
     }
 
     @Override
     public String waitExecute(Update update, Long chatId) {
-        return null;
+        return "Я не могу, у меня лапки \uD83D\uDC08";
     }
 }

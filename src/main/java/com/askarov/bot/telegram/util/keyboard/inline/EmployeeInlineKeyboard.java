@@ -28,16 +28,16 @@ public class EmployeeInlineKeyboard {
         List<List<InlineKeyboardButton>> EmployeeMenuList = new ArrayList<>();
 
         EmployeeMenuList.add(InlineKeyboard.getButton(
-                CallbackDataAndBotState.EMPLOYEE_CREATE.getInlineName(),
-                CallbackDataAndBotState.EMPLOYEE_CREATE.getCommandName()));
+                CallbackDataAndBotState.EMPLOYEE_CREATE.getCommandName(),
+                CallbackDataAndBotState.EMPLOYEE_CREATE.getSyntax()));
 
         EmployeeMenuList.add(InlineKeyboard.getButton(
-                CallbackDataAndBotState.EMPLOYEE_UPDATE.getInlineName(),
-                CallbackDataAndBotState.EMPLOYEE_UPDATE.getCommandName()));
+                CallbackDataAndBotState.EMPLOYEE_UPDATE.getCommandName(),
+                CallbackDataAndBotState.EMPLOYEE_UPDATE.getSyntax()));
 
         EmployeeMenuList.add(InlineKeyboard.getButton(
-                CallbackDataAndBotState.EMPLOYEE_DELETE.getInlineName(),
-                CallbackDataAndBotState.EMPLOYEE_DELETE.getCommandName()));
+                CallbackDataAndBotState.EMPLOYEE_DELETE.getCommandName(),
+                CallbackDataAndBotState.EMPLOYEE_DELETE.getSyntax()));
 
         return EmployeeMenuList;
     }

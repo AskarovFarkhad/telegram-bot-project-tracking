@@ -22,7 +22,7 @@ public class UpdateHandlerImpl implements UpdateHandler {
     public SendMessage updateHandler(Update update) {
         SendMessage replyMessage = null;
 
-        if (update.hasMessage()) {
+        if (update.hasMessage() && update.getMessage().hasText()) {
             Message message = update.getMessage();
             Long chatId = message.getChatId();
             log.info("New message from User: {}, chatId: {}, with text: {}",

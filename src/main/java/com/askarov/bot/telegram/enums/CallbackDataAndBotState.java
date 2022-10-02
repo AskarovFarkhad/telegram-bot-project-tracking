@@ -46,12 +46,12 @@ public enum CallbackDataAndBotState {
             "Список всех сотрудников",
             "/list"),
 
-    CANCEL(
-            "⬅ Назад",
-                    "/cancel");
+    ADMIN(
+            "Администратор",
+            "/admin");
 
     @Getter
-    private final String inlineName;
-    @Getter
     private final String commandName;
+    @Getter
+    private final String syntax;
 }

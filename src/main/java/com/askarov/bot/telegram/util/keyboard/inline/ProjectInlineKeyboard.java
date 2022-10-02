@@ -28,16 +28,16 @@ public class ProjectInlineKeyboard {
         List<List<InlineKeyboardButton>> ProjectMenuList = new ArrayList<>();
 
         ProjectMenuList.add(InlineKeyboard.getButton(
-                CallbackDataAndBotState.PROJECT_ADD.getInlineName(),
-                CallbackDataAndBotState.PROJECT_ADD.getCommandName()));
+                CallbackDataAndBotState.PROJECT_ADD.getCommandName(),
+                CallbackDataAndBotState.PROJECT_ADD.getSyntax()));
 
         ProjectMenuList.add(InlineKeyboard.getButton(
-                CallbackDataAndBotState.PROJECT_UPDATE.getInlineName(),
-                CallbackDataAndBotState.PROJECT_UPDATE.getCommandName()));
+                CallbackDataAndBotState.PROJECT_UPDATE.getCommandName(),
+                CallbackDataAndBotState.PROJECT_UPDATE.getSyntax()));
 
         ProjectMenuList.add(InlineKeyboard.getButton(
-                CallbackDataAndBotState.PROJECT_DELETE.getInlineName(),
-                CallbackDataAndBotState.PROJECT_DELETE.getCommandName()));
+                CallbackDataAndBotState.PROJECT_DELETE.getCommandName(),
+                CallbackDataAndBotState.PROJECT_DELETE.getSyntax()));
 
         return ProjectMenuList;
     }

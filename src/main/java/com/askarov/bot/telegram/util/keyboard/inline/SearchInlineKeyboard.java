@@ -28,16 +28,16 @@ public class SearchInlineKeyboard {
         List<List<InlineKeyboardButton>> SearchMenuList = new ArrayList<>();
 
         SearchMenuList.add(InlineKeyboard.getButton(
-                CallbackDataAndBotState.SEARCH_EMPLOYEE.getInlineName(),
-                CallbackDataAndBotState.SEARCH_EMPLOYEE.getCommandName()));
+                CallbackDataAndBotState.SEARCH_EMPLOYEE.getCommandName(),
+                CallbackDataAndBotState.SEARCH_EMPLOYEE.getSyntax()));
 
         SearchMenuList.add(InlineKeyboard.getButton(
-                CallbackDataAndBotState.SEARCH_PROJECT.getInlineName(),
-                CallbackDataAndBotState.SEARCH_PROJECT.getCommandName()));
+                CallbackDataAndBotState.SEARCH_PROJECT.getCommandName(),
+                CallbackDataAndBotState.SEARCH_PROJECT.getSyntax()));
 
         SearchMenuList.add(InlineKeyboard.getButton(
-                CallbackDataAndBotState.SEARCH_ALL_EMPLOYEES.getInlineName(),
-                CallbackDataAndBotState.SEARCH_ALL_EMPLOYEES.getCommandName()));
+                CallbackDataAndBotState.SEARCH_ALL_EMPLOYEES.getCommandName(),
+                CallbackDataAndBotState.SEARCH_ALL_EMPLOYEES.getSyntax()));
 
         return SearchMenuList;
     }

@@ -17,4 +17,8 @@ public interface ProjectRegistrationRepository
     List<ProjectRegistration> getByEmployee(Employee employee);
 
     List<ProjectRegistration> getByProject(Project project);
+
+    void deleteByProject(Project project);
+
+    void deleteByEmployee(Employee employee);
 }

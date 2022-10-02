@@ -1,6 +1,6 @@
 package com.askarov.bot.telegram.cache;
 
-public interface EmployeeDataCache<R, T>  {
+public interface DataCache<R, T>  {
 
     void addIfAbsent(R key, T value);
 
