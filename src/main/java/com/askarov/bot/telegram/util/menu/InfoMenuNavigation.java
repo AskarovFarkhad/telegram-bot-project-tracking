@@ -14,16 +14,16 @@ public class InfoMenuNavigation {
 
     private final static String INFO_MESSAGE = ", \n\n" +
             "В меню <b><i>" + MainMenu.EMPLOYEE.getMenu() + "</i></b> можно:\n\n" +
-            EMPLOYEE_CREATE.getSyntax() + " - добавить себя с список;\n" +
+            EMPLOYEE_CREATE.getSyntax() + " - добавить себя в список;\n" +
             EMPLOYEE_UPDATE.getSyntax() + " - обновить свои данные;\n" +
             EMPLOYEE_DELETE.getSyntax() + " - удалить сотрудника" +
-            "(доступно для " + ADMIN.getSyntax() + ");\n\n" +
+            " (удаление по данным доступно для  " + ADMIN.getSyntax() + ");\n\n" +
 
             "В меню <b><i>" + MainMenu.PROJECT.getMenu() + "</i></b> можно:\n\n" +
             PROJECT_ADD.getSyntax() + " - добавить проект;\n" +
             PROJECT_UPDATE.getSyntax() + " - обновить название проекта по номеру;\n" +
             PROJECT_DELETE.getSyntax() + " - удалить проект\n" +
-            "(доступно для " + ADMIN.getSyntax() + ");\n\n" +
+            "(доступно для  " + ADMIN.getSyntax() + ");\n\n" +
 
             "В меню <b><i>" + MainMenu.SEARCH.getMenu() + "</i></b> можно:\n\n" +
             SEARCH_EMPLOYEE.getSyntax() + " - найти сотрудника по фамилии;\n" +

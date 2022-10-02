@@ -18,7 +18,6 @@ public interface EmployeeRepository
 
     List<Employee> getAllByEmployeeLastName(String employeeLastName);
 
-    List<Employee> getAllByEmployeeLastNameAndEmployeeFirstNameAndEmployeePatronymic(String employeeLastName,
-                                                                                     String employeeFirstName,
-                                                                                     String employeePatronymic);
+    List<Employee> getAllByEmployeeLastNameAndEmployeeFirstNameAndEmployeePatronymic
+            (String employeeLastName, String employeeFirstName, String employeePatronymic);
 }
