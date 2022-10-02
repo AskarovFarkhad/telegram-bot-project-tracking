@@ -17,7 +17,6 @@ public class EmployeePrintHandler {
                             reply
                                     .append(projectRegistration.getRegisteredDate()).append(" --- ")
                                     .append(projectRegistration.getProject()));
-                    reply.append("\n");
                 }
         );
         return reply.toString();

@@ -4,6 +4,8 @@ import com.askarov.bot.telegram.enums.MainMenu;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
+import static com.askarov.bot.telegram.enums.CallbackDataAndBotState.*;
+
 /**
  * @author Farkhad Askarov
  */
@@ -12,17 +14,21 @@ public class InfoMenuNavigation {
 
     private final static String INFO_MESSAGE = ", \n\n" +
             "В меню <b><i>" + MainMenu.EMPLOYEE.getMenu() + "</i></b> можно:\n\n" +
-            "/create - добавить себя с список;\n" +
-            "/update - обновить свои данные;\n" +
-            "/delete - удалить сотрудника (доступно для /admin); \n\n" +
+            EMPLOYEE_CREATE.getSyntax() + " - добавить себя с список;\n" +
+            EMPLOYEE_UPDATE.getSyntax() + " - обновить свои данные;\n" +
+            EMPLOYEE_DELETE.getSyntax() + " - удалить сотрудника" +
+            "(доступно для " + ADMIN.getSyntax() + ");\n\n" +
+
             "В меню <b><i>" + MainMenu.PROJECT.getMenu() + "</i></b> можно:\n\n" +
-            "/project - добавить проект;\n" +
-            "/update_pr - обновить название проекта по номеру;\n" +
-            "/delete_pr - удалить проект (доступно для /admin);\n\n" +
+            PROJECT_ADD.getSyntax() + " - добавить проект;\n" +
+            PROJECT_UPDATE.getSyntax() + " - обновить название проекта по номеру;\n" +
+            PROJECT_DELETE.getSyntax() + " - удалить проект\n" +
+            "(доступно для " + ADMIN.getSyntax() + ");\n\n" +
+
             "В меню <b><i>" + MainMenu.SEARCH.getMenu() + "</i></b> можно:\n\n" +
-            "/search_emp - найти сотрудника по фамилии;\n" +
-            "/search_pr - найти проект по номеру;\n" +
-            "/list - вывести всех сотрудников с историей проектов;\n\n";
+            SEARCH_EMPLOYEE.getSyntax() + " - найти сотрудника по фамилии;\n" +
+            SEARCH_PROJECT.getSyntax() + " - найти проект по номеру;\n" +
+            SEARCH_ALL_EMPLOYEES.getSyntax() + " - вывести всех сотрудников с историей проектов;\n\n";
 
     public String getCommandSyntax() {
         return MainMenu.INFO.getMenu();

@@ -14,7 +14,7 @@ import static com.askarov.bot.telegram.enums.CallbackDataAndBotState.START;
 @AllArgsConstructor(onConstructor_ = {@Autowired})
 public class StartCommandImpl implements Command {
 
-    EmployeeDataCacheImpl<Long, CallbackDataAndBotState> employeeDataCache;
+    EmployeeDataCacheImpl<Long, CallbackDataAndBotState> dataCache;
 
     @Override
     public String getCommandSyntax() {
@@ -28,7 +28,7 @@ public class StartCommandImpl implements Command {
 
     @Override
     public String waitExecute(Update update, Long chatId) {
-        employeeDataCache.addIfAbsent(chatId, START);
+        dataCache.addIfAbsent(chatId, START);
         return execute(update, chatId);
     }
 }

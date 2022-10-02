@@ -1,6 +1,6 @@
 package com.askarov.bot.telegram.services.command.impl.project;
 
-import com.askarov.bot.telegram.cache.EmployeeDataCache;
+import com.askarov.bot.telegram.cache.impl.EmployeeDataCacheImpl;
 import com.askarov.bot.telegram.entity.Project;
 import com.askarov.bot.telegram.enums.CallbackDataAndBotState;
 import com.askarov.bot.telegram.repository.ProjectRepository;
@@ -20,7 +20,7 @@ import static com.askarov.bot.telegram.enums.CallbackDataAndBotState.*;
 public class UpdateProjectCommandImpl implements Command {
 
     private final ProjectRepository projectRepository;
-    private final EmployeeDataCache<Long, CallbackDataAndBotState> employeeDataCache;
+    private final EmployeeDataCacheImpl<Long, CallbackDataAndBotState> dataCache;
 
     @Override
     public String getCommandSyntax() {
@@ -29,33 +29,32 @@ public class UpdateProjectCommandImpl implements Command {
 
     @Override
     public String execute(Update update, Long chatId) {
-        String[] projectDataUpdate = update.getMessage().getText().trim().split("\\s");
         String reply;
-
         try {
+            String[] projectDataUpdate = update.getMessage().getText().trim().split("\\s");
             Project project = projectRepository.getByProjectNumber(projectDataUpdate[0]);
-            if (projectRepository.getByProjectNumber(project.getProjectNumber()) != null) {
+            if (project != null) {
                 project.setProjectName(TextHandler.projectNameToString(projectDataUpdate));
                 projectRepository.save(project);
                 reply = "Проект обновлён ✅";
             } else {
                 reply = "Нет проекта с таким номером ✅";
             }
-            employeeDataCache.updateIfPresent(chatId, START);
+            dataCache.updateIfPresent(chatId, START);
         } catch (Exception e) {
             log.error("Status {}, Command {}, Error: {}",
-                    employeeDataCache.get(chatId), this.getCommandSyntax(), e.getMessage());
+                    dataCache.get(chatId), this.getCommandSyntax(), e.getMessage());
             reply = "Не удалось обновить проект ❌";
         }
 
         log.info("Status {}, Command {}, reply message {}",
-                employeeDataCache.get(chatId), this.getCommandSyntax(), reply);
+                dataCache.get(chatId), this.getCommandSyntax(), reply);
         return reply;
     }
 
     @Override
     public String waitExecute(Update update, Long chatId) {
-        employeeDataCache.updateIfPresent(chatId, PROJECT_UPDATE);
+        dataCache.updateIfPresent(chatId, PROJECT_UPDATE);
         return "Введите новое название проекта:\n<b><i>Номер Новое название</i></b>";
     }
 }

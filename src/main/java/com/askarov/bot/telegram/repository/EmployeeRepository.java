@@ -12,9 +12,13 @@ import java.util.List;
 public interface EmployeeRepository
         extends JpaRepository<Employee, Long> {
 
-    int deleteByChatId(Long chatId);
+    void deleteByChatId(Long chatId);
 
     Employee getByChatId(Long chatId);
 
     List<Employee> getAllByEmployeeLastName(String employeeLastName);
+
+    List<Employee> getAllByEmployeeLastNameAndEmployeeFirstNameAndEmployeePatronymic(String employeeLastName,
+                                                                                     String employeeFirstName,
+                                                                                     String employeePatronymic);
 }

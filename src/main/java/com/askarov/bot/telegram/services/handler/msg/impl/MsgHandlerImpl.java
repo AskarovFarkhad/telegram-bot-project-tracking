@@ -1,9 +1,9 @@
 package com.askarov.bot.telegram.services.handler.msg.impl;
 
+import com.askarov.bot.telegram.cache.impl.EmployeeDataCacheImpl;
 import com.askarov.bot.telegram.enums.CallbackDataAndBotState;
 import com.askarov.bot.telegram.services.CommandContext;
 import com.askarov.bot.telegram.services.handler.msg.MsgHandler;
-import com.askarov.bot.telegram.cache.EmployeeDataCache;
 import com.askarov.bot.telegram.util.keyboard.ReplyKeyboard;
 import com.askarov.bot.telegram.util.menu.InfoMenuNavigation;
 import lombok.AllArgsConstructor;
@@ -24,7 +24,7 @@ public class MsgHandlerImpl implements MsgHandler {
 
     private final CommandContext commandContext;
     private final InfoMenuNavigation infoCommand;
-    private final EmployeeDataCache<Long, CallbackDataAndBotState> employeeDataCache;
+    private final EmployeeDataCacheImpl<Long, CallbackDataAndBotState> dataCache;
 
     @Override
     public SendMessage outMessageText(Update update, String text, Long chatId) {
@@ -41,7 +41,7 @@ public class MsgHandlerImpl implements MsgHandler {
         } else if (text.startsWith(COMMAND_PREFIX)) {
             outMsg.setText(commandContext.retrieveCommand(text.trim()).waitExecute(update, chatId));
         } else {
-            CallbackDataAndBotState botState = employeeDataCache.get(chatId);
+            CallbackDataAndBotState botState = dataCache.get(chatId);
             if (botState != START) {
                 outMsg.setText(commandContext.retrieveCommand(botState.getSyntax()).execute(update, chatId));
             } else {

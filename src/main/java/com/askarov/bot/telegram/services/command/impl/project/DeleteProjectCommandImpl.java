@@ -1,6 +1,7 @@
 package com.askarov.bot.telegram.services.command.impl.project;
 
-import com.askarov.bot.telegram.cache.EmployeeDataCache;
+import com.askarov.bot.telegram.cache.impl.AdminDataCacheImpl;
+import com.askarov.bot.telegram.cache.impl.EmployeeDataCacheImpl;
 import com.askarov.bot.telegram.entity.Project;
 import com.askarov.bot.telegram.enums.CallbackDataAndBotState;
 import com.askarov.bot.telegram.repository.ProjectRegistrationRepository;
@@ -21,7 +22,8 @@ public class DeleteProjectCommandImpl implements Command {
 
     private final ProjectRepository projectRepository;
     private final ProjectRegistrationRepository projectRegistrationRepository;
-    private final EmployeeDataCache<Long, CallbackDataAndBotState> employeeDataCache;
+    private final EmployeeDataCacheImpl<Long, CallbackDataAndBotState> dataCache;
+    private final AdminDataCacheImpl<Long, Boolean> adminAccountDataCache;
 
     @Override
     public String getCommandSyntax() {
@@ -30,32 +32,36 @@ public class DeleteProjectCommandImpl implements Command {
 
     @Override
     public String execute(Update update, Long chatId) {
-        String[] projectDataDelete = update.getMessage().getText().trim().split("\\s");
         String reply;
-        Project project = projectRepository.getByProjectNumber(projectDataDelete[0]);
         try {
+            String[] projectDataDelete = update.getMessage().getText().trim().split("\\s");
+            Project project = projectRepository.getByProjectNumber(projectDataDelete[0]);
             if (project != null) {
-                projectRegistrationRepository.deleteByProject(project);
-                projectRepository.delete(project);
-                reply = "Проект удалён! ✅";
+                if (adminAccountDataCache.get(chatId) != null) {
+                    projectRegistrationRepository.deleteByProject(project);
+                    projectRepository.delete(project);
+                    reply = "Проект удалён! ✅";
+                } else {
+                    reply = "Отказано в доступе ❌";
+                }
             } else {
-                reply = "Проект отсутствует! ✅";
+                reply = "Проект отсутствует ! ✅";
             }
-            employeeDataCache.updateIfPresent(chatId, START);
+            dataCache.updateIfPresent(chatId, START);
         } catch (Exception e) {
             log.error("Status {}, Command {}, Error: {}",
-                    employeeDataCache.get(chatId), this.getCommandSyntax(), e.getMessage());
+                    dataCache.get(chatId), this.getCommandSyntax(), e.getMessage());
             reply = "Не удалось удалить проект ❌";
         }
 
         log.info("Status {}, Command {}, reply message {}",
-                employeeDataCache.get(chatId), this.getCommandSyntax(), reply);
+                dataCache.get(chatId), this.getCommandSyntax(), reply);
         return reply;
     }
 
     @Override
     public String waitExecute(Update update, Long chatId) {
-        employeeDataCache.updateIfPresent(chatId, PROJECT_DELETE);
+        dataCache.updateIfPresent(chatId, PROJECT_DELETE);
         return "Введите номер проекта:\n";
     }
 }

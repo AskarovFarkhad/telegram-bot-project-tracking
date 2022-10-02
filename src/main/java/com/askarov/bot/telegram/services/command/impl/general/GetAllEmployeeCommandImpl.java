@@ -1,6 +1,6 @@
 package com.askarov.bot.telegram.services.command.impl.general;
 
-import com.askarov.bot.telegram.cache.EmployeeDataCache;
+import com.askarov.bot.telegram.cache.impl.EmployeeDataCacheImpl;
 import com.askarov.bot.telegram.entity.Employee;
 import com.askarov.bot.telegram.enums.CallbackDataAndBotState;
 import com.askarov.bot.telegram.repository.EmployeeRepository;
@@ -24,7 +24,7 @@ public class GetAllEmployeeCommandImpl implements Command {
 
     private final EmployeeRepository employeeRepository;
     private final ProjectRegistrationRepository projectRegistrationRepository;
-    private final EmployeeDataCache<Long, CallbackDataAndBotState> employeeDataCache;
+    private final EmployeeDataCacheImpl<Long, CallbackDataAndBotState> dataCache;
 
     @Override
     public String getCommandSyntax() {
@@ -33,23 +33,29 @@ public class GetAllEmployeeCommandImpl implements Command {
 
     @Override
     public String execute(Update update, Long chatId) {
-        List<Employee> employeeList = employeeRepository.findAll();
         String reply;
 
-        if (employeeList.size() != 0) {
-            reply = EmployeePrintHandler.printData(employeeList, projectRegistrationRepository);
-        } else {
-            reply = "Список сотрудников пуст ❌";
+        try {
+            List<Employee> employeeList = employeeRepository.findAll();
+            if (employeeList.size() != 0) {
+                reply = EmployeePrintHandler.printData(employeeList, projectRegistrationRepository);
+            } else {
+                reply = "Список сотрудников пуст ❌";
+            }
+        } catch (Exception e) {
+            log.error("Status {}, Command {}, Error: {}",
+                    dataCache.get(chatId), this.getCommandSyntax(), e.getMessage());
+            reply = "Возникла ошибка... ❌";
         }
 
-        employeeDataCache.updateIfPresent(chatId, START);
+        dataCache.updateIfPresent(chatId, START);
         log.info("Status {}, Command {}, reply message {}",
-                employeeDataCache.get(chatId), this.getCommandSyntax(), reply);
+                dataCache.get(chatId), this.getCommandSyntax(), reply);
         return reply;
     }
 
     public String waitExecute(Update update, Long chatId) {
-        employeeDataCache.updateIfPresent(chatId, SEARCH_ALL_EMPLOYEES);
+        dataCache.updateIfPresent(chatId, SEARCH_ALL_EMPLOYEES);
         return execute(update, chatId);
     }
 }

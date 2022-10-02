@@ -1,16 +1,16 @@
 package com.askarov.bot.telegram.entity;
 
 import com.askarov.bot.telegram.enums.EmployeeStatus;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Builder
 @NoArgsConstructor
@@ -40,15 +40,29 @@ public class Employee {
     @Column(name = "employee_status")
     private String employeeStatus = EmployeeStatus.WORK.getStatusEmployee();
 
-    @OneToMany(mappedBy = "employee", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "employee", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    @ToString.Exclude
     private Set<ProjectRegistration> projectRegistrations = new HashSet<>();
 
     @Override
     public String toString() {
-        return getId() + "\n" + "<b>Данные:</b> " +
+        return "\n" + getId() + "\n" + "<b>Данные:</b> " +
                 getEmployeeLastName() + (" ") +
                 getEmployeeFirstName() + " " +
                 getEmployeePatronymic() + "\n" +
                 "<b>Должность:</b> " + getEmployeePost() + "\n";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Employee employee = (Employee) o;
+        return id != null && Objects.equals(id, employee.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }

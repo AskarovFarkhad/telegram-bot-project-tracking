@@ -1,10 +1,10 @@
 package com.askarov.bot.telegram.services.command.impl.employee;
 
+import com.askarov.bot.telegram.cache.impl.EmployeeDataCacheImpl;
 import com.askarov.bot.telegram.entity.Employee;
 import com.askarov.bot.telegram.enums.CallbackDataAndBotState;
 import com.askarov.bot.telegram.repository.EmployeeRepository;
 import com.askarov.bot.telegram.services.command.Command;
-import com.askarov.bot.telegram.cache.EmployeeDataCache;
 import com.askarov.bot.telegram.services.handler.text.TextHandler;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +20,7 @@ import static com.askarov.bot.telegram.enums.CallbackDataAndBotState.*;
 public class UpdateEmployeeCommandImpl implements Command {
 
     private final EmployeeRepository employeeRepository;
-    private final EmployeeDataCache<Long, CallbackDataAndBotState> employeeDataCache;
+    private final EmployeeDataCacheImpl<Long, CallbackDataAndBotState> dataCache;
 
     @Override
     public String getCommandSyntax() {
@@ -29,10 +29,9 @@ public class UpdateEmployeeCommandImpl implements Command {
 
     @Override
     public String execute(Update update, Long chatId) {
-        String[] empDataUpdate = update.getMessage().getText().trim().split("\\s");
         String reply;
-
         try {
+            String[] empDataUpdate = update.getMessage().getText().trim().split("\\s");
             Employee employee = employeeRepository.getByChatId(chatId);
             if (employee != null) {
                 employee.setEmployeeLastName(empDataUpdate[0]);
@@ -44,21 +43,21 @@ public class UpdateEmployeeCommandImpl implements Command {
             } else {
                 reply = "Сначала нужно добавиться ❌";
             }
-            employeeDataCache.updateIfPresent(chatId, START);
+            dataCache.updateIfPresent(chatId, START);
         } catch (Exception e) {
             log.error("Status {}, Command {}, Error: {}",
-                    employeeDataCache.get(chatId), this.getCommandSyntax(), e.getMessage());
+                    dataCache.get(chatId), this.getCommandSyntax(), e.getMessage());
             reply = "Не удалось обновить данные ❌";
         }
 
         log.info("Status {}, Command {}, reply message {}",
-                employeeDataCache.get(chatId), this.getCommandSyntax(), reply);
+                dataCache.get(chatId), this.getCommandSyntax(), reply);
         return reply;
     }
 
     @Override
     public String waitExecute(Update update, Long chatId) {
-        employeeDataCache.updateIfPresent(chatId, EMPLOYEE_UPDATE);
+        dataCache.updateIfPresent(chatId, EMPLOYEE_UPDATE);
         return "Введите новые данные по форме:\n<b><i>Фамилия Имя Отчество Должность</i></b>";
     }
 }
