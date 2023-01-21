@@ -22,10 +22,10 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "employee_chat_id", nullable = false)
+    @Column(name = "employee_chat_id")
     private Long chatId;
 
-    @Column(name = "employee_first_name", nullable = false)
+    @Column(name = "employee_first_name")
     private String employeeFirstName;
 
     @Column(name = "employee_last_name")
@@ -34,14 +34,13 @@ public class Employee {
     @Column(name = "employee_patronymic")
     private String employeePatronymic;
 
-    @Column(name = "employee_post", nullable = false)
+    @Column(name = "employee_post")
     private String employeePost;
 
     @Column(name = "employee_status")
     private String employeeStatus = EmployeeStatus.WORK.getStatusEmployee();
 
     @OneToMany(mappedBy = "employee", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
-    @ToString.Exclude
     private Set<ProjectRegistration> projectRegistrations = new HashSet<>();
 
     @Override

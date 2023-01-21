@@ -1,7 +1,7 @@
 package com.askarov.bot.telegram.config;
 
-import com.askarov.bot.telegram.util.keyboard.ReplyKeyboard;
 import com.askarov.bot.telegram.services.handler.update.UpdateHandler;
+import com.askarov.bot.telegram.util.keyboard.ReplyKeyboard;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

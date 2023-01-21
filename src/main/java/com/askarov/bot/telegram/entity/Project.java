@@ -23,7 +23,7 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "project_number", nullable = false)
+    @Column(name = "project_number")
     private String projectNumber;
 
     @Column(name = "project_name")
@@ -33,7 +33,6 @@ public class Project {
     private String statusProject = DEVELOP.getStatusProject();
 
     @OneToMany(mappedBy = "project", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
-    @ToString.Exclude
     private Set<ProjectRegistration> projectRegistrations = new HashSet<>();
 
     @Override
